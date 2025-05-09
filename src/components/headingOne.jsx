@@ -2,7 +2,10 @@ import React from "react";
 
 function HeadingOne() {
   return (
-    <div className="headingOne d-flex justify-content-center align-items-center text-center text-white">
+    <div 
+      className="headingOne d-flex justify-content-center align-items-center text-center text-white"
+      id="scrollspyHeading1"
+    >
       <div className="content-headingOne position-relative w-100 h-100">
         <img
           src="/assets/desaSawangan.jpg"

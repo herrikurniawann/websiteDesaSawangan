@@ -2,12 +2,14 @@ import React from "react";
 
 function HeadingThree() {
   return (
-    <div className="HeadingThree">
-      <div>
-        <div className="d-flex justify-content-center align-items-center ">
-          <div className="content-HeadingThree d-flex align-items-center" style={{ height: "80dvh" }}>
-            <img src="assets/logoMinahasa.png" alt="kepaladesa" />
-            <div className="pe-md-4">
+    <div className="HeadingThree" id="scrollspyHeading3">
+      <div className="container">
+        <div className="d-flex justify-content-center align-items-center">
+          <div className="content-HeadingThree d-flex flex-column flex-md-row align-items-center py-5">
+            <div className="d-flex justify-content-center mb-4 mb-md-0">
+              <img src="assets/logoMinahasa.png" alt="kepaladesa" />
+            </div>
+            <div className="pe-md-4 text-center text-md-start">
               <h1 className="fw-bold">Hukum Tua</h1>
               <h2>ELVIS D. MALINGKONOR</h2>
               <p>
