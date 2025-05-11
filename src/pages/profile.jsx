@@ -55,6 +55,16 @@ function Profile() {
                   Wilayah
                 </button>
               </li>
+              <li className="nav-item">
+                <button
+                  onClick={() => handleTabChange("organisasi")}
+                  className={`nav-link ${
+                    activeTab === "organisasi" ? "active" : ""
+                  }`}
+                >
+                  Organisasi
+                </button>
+              </li>
             </ul>
             <div className="tab-content py-4">
               {activeTab === "beranda" && (
@@ -233,6 +243,70 @@ function Profile() {
                           Ompi.
                         </p>
                       </div>
+                      <div
+                        className="info-card p-4 mx-auto"
+                        style={{ maxWidth: "100%" }}
+                      >
+                        <h4 className="fs-5 fw-semibold text-primary mb-3">
+                          Adat Istiadat Desa Sawangan
+                        </h4>
+                        <h3 className="fs-5 fw-semibold text-primary mb-2">
+                          Pertanian
+                        </h3>
+                        <p className="mb-3">
+                          Bilamana membuka kebun baru, maka dipanggil Tonaas
+                          untuk lebih dahulu mengadakan paras kebun tersebut,
+                          setelah itu kebun dikerjakan beramai-ramai secara
+                          gotong royong (Mapalus). Demikian pula setelah hasil
+                          pertama dari kebun tersebut diambil, lebih dahulu
+                          harus dimakan oleh Tonaas.
+                        </p>
+                        <br />
+                        <h3 className="fs-5 fw-semibold text-primary mb-2">
+                          Pertanian
+                        </h3>
+                        <p className="mb-3">
+                          Bilamana membuka kebun baru, maka dipanggil Tonaas
+                          untuk lebih dahulu mengadakan paras kebun tersebut,
+                          setelah itu kebun dikerjakan beramai-ramai secara
+                          gotong royong (Mapalus). Demikian pula setelah hasil
+                          pertama dari kebun tersebut diambil, lebih dahulu
+                          harus dimakan oleh Tonaas.
+                        </p>
+                        <br />
+                        <h3 className="fs-5 fw-semibold text-primary mb-2">
+                          Pentahbisan Rumah Baru
+                        </h3>
+                        <p className="mb-3">
+                          Yang mula-mula datang memasang lampu ialah Tonaas,
+                          kemudian diadakan tari-tarian Maowe/Marambak.
+                        </p>
+                        <h3 className="fs-5 fw-semibold text-primary mb-2">
+                          Kepercayaan
+                        </h3>
+                        <p className="mb-3">
+                          Semua penduduk mengakui adanya Tuhan, dan menganut
+                          Agama Kristen.
+                        </p>
+                        <br />
+                        <h3 className="fs-5 fw-semibold text-primary mb-2">
+                          Perkawinan
+                        </h3>
+                        <p className="mb-3">
+                          Sepasang pemuda-pemudi yang saling jatuh cinta, maka
+                          kewajiban dari sang lelaki bersama-sama dengan orang
+                          tuanya mengadakan lamaran pada si wanita melalui orang
+                          tuanya mengantar harta berupa kebun kelapa atau bentuk
+                          lainnya yang dijadikan milik bersama (Pamehe).
+                        </p>
+                        <br />
+                        <h3 className="fs-5 fw-semibold text-primary mb-2">
+                          Kesenian
+                        </h3>
+                        <p className="mb-3">
+                          Maengket, tari jajar, tari perang (cakalele )
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -242,6 +316,24 @@ function Profile() {
                   <div className="card shadow-sm">
                     <div className="card-body">
                       <h2 className="section-title">Wilayah Desa</h2>
+                      <p className="mb-3">
+                        Desa Sawangan dengan Luas Wilayah keseluruhan 892
+                        Hektar, terdiri dari dataran pemukiman penduduk,
+                        perbukitan dan lembah serta areal pertanian, dengan
+                        batas wilayah : Sebelah Utara berbatasan dengan Desa
+                        Tikela/ Maumbi Kalawat, Sebelah Timur berbatasan dengan
+                        Desa Maumbi dan Desa Kuwil Sebelah Selatan berbatasan
+                        dengan Desa Kamangta dan Desa Tombuluan Sebelah Barat
+                        berbatasan dengan Desa Kamangta dan Desa Tikela.
+                      </p>
+                      <hr />
+                      <p className="mb-3">
+                        Desa Sawangan terbagi dalam 6 Wilayah Jaga, dimana
+                        masing-masing jaga dikoordinir oleh Kepala Jaga yang
+                        disebut Pala dan Meweteng yang berfungsi mengawasi dan
+                        mengkoordinir aktifitas pembangunan dan pelayan
+                        masyarakat di masing-masing wilayahnya.
+                      </p>
                       <div className="row mb-4">
                         <div className="col-md-4 mb-3">
                           <div className="info-card">
