@@ -1,4 +1,3 @@
-/* Base Styles */
 * {
   margin: 0;
   padding: 0;
@@ -161,6 +160,87 @@ iframe {
   height: 750px;
 }
 
+.header-bg {
+  background: url('./assets/desaSawangan.jpg') no-repeat center center/cover;
+  height: 60vh;
+  overflow: hidden;
+  position: relative;
+  color: #ffff;
+  font-weight: bold;
+}
+
+.text-content-profile {
+  margin-top: 15rem;
+  text-align: center;
+}
+
+.text-content-profile .fs {
+  font-size: 13px;
+}
+
+.header-bg .overlay {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 2;
+}
+
+.nav-pills .nav-link.active {
+  background-color: #2d4b81;
+}
+
+.nav-pills .nav-link {
+  color: #4a5568;
+  cursor: pointer;
+}
+
+.nav-pills .nav-link:hover:not(.active) {
+  color: #1a56db;
+  background-color: #e2e8f0;
+}
+
+.card {
+  margin: auto;
+  width: 100%;
+  height: 100%;
+}
+
+.info-card {
+  background-color: #ebf5ff;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid #d1e1ff;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.info-card:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.section-title {
+  color: #1a56db;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #d1e1ff;
+}
+
+.card-title {
+  color: #1e40af;
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 0.75rem;
+}
+
+.tab-content {
+  min-height: 900px;
+}
+
 /* Media queries for responsiveness */
 @media (max-width: 1200px) {
   .content-HeadingTwo,
@@ -189,6 +269,19 @@ iframe {
   .content-HeadingThree img {
     width: 250px;
     height: 250px;
+  }
+
+  .header-bg {
+    height: 80vh;
+  }
+
+  .card {
+    margin: auto;
+    width: 100%;
+  }
+  
+  .info-card {
+    padding: 0.75rem;
   }
   
   iframe {
@@ -228,6 +321,31 @@ iframe {
     height: 200px;
     margin-right: 20px;
   }
+
+  .header-bg {
+    height: 80vh;
+  }
+
+  .card {
+    margin: auto;
+    width: 100%;
+  }
+  
+  .display-4 {
+    font-size: 2.5rem;
+  }
+  
+  .fs-4 {
+    font-size: 1.1rem !important;
+  }
+  
+  .fs-5 {
+    font-size: 1rem !important;
+  }
+  
+  .section-title {
+    font-size: 1.5rem;
+  }
   
   iframe {
     height: 450px;
@@ -257,6 +375,29 @@ iframe {
   
   .content-HeadingThree img {
     margin: 0 auto 20px;
+  }
+
+  .header-bg {
+    height: 80vh;
+  }
+
+  .card {
+    margin: auto;
+    width: 100%;
+  }
+  
+  .display-4 {
+    font-size: 2rem;
+  }
+  
+  .section-title {
+    font-size: 1.3rem;
+  }
+  
+  .nav-pills .nav-link {
+    font-size: 0.9rem;
+    padding: 0.4rem;
+    margin: 4px;
   }
   
   iframe {

@@ -13,13 +13,12 @@ function HeadingTwo() {
             <div className="pe-md-4 text-center text-md-start">
               <h1 className="fw-bold mb-4">Mengenal Desa</h1>
               <p>
-                Jelajahi berbagai informasi lengkap mengenai Desa melalui
-                website ini, yang dirancang untuk memberikan pemahaman
-                menyeluruh tentang kehidupan di Desa. Anda dapat menelusuri
-                berbagai aspek penting seperti pemerintahan Desa, data dan
-                profil penduduk, kondisi demografi, potensi sumber daya lokal,
-                serta berita-berita terbaru yang relevan dan aktual bagi
-                masyarakat Desa.
+                Temukan beragam informasi mendalam seputar Desa melalui situs
+                ini, yang disusun untuk memberikan wawasan komprehensif mengenai
+                dinamika kehidupan di Desa. Anda dapat mengeksplorasi berbagai
+                aspek penting, mulai dari struktur pemerintahan Desa, data
+                kependudukan, kondisi demografi, potensi sumber daya lokal,
+                hingga berita terkini yang relevan bagi masyarakat Desa.
               </p>
             </div>
             <div className="d-flex justify-content-center">

@@ -29,13 +29,13 @@ function Login() {
   return (
     <>
       <Navbar />
-      <div className="vh-100 d-flex justify-content-center align-items-center bg-gradient">
+      <div className="vh-100 d-flex justify-content-center align-items-center bg-light">
         <div
-          className="card shadow p-4 rounded-4 mx-auto"
-          style={{ maxWidth: "400px" }}
+          className="card-login shadow p-4 rounded-4 mx-auto"
+          style={{ maxWidth: "100%", width: "80%", height: "50%" }}
         >
           <h2 className="text-center mb-4 fw-bold">
-            {formType === "login" ? "Login ke Akun Anda" : "Ganti Password"}
+            {formType === "login" ? "Silahkan Masuk" : "Ganti Password"}
           </h2>
           <form
             onSubmit={formType === "login" ? handleLogin : handleChangePassword}
