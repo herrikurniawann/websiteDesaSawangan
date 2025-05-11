@@ -76,6 +76,11 @@ function Navbar() {
                       E-Lapor
                     </a>
                   </li>
+                  <li>
+                    <a className="dropdown-item" href="#scrollspyHeading5" onClick={() => navigate("/login")}>
+                      Masuk Admin
+                    </a>
+                  </li>
                 </ul>
               </li>
             </ul>

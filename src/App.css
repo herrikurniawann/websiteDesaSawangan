@@ -33,9 +33,8 @@ img {
   background-color: #2d4b81;
 }
 
-/* HeadingOne Styles */
 .headingOne {
-  height: 100vh; /* Menggunakan vh daripada dvh untuk kompatibilitas lebih luas */
+  height: 100vh;
   overflow: hidden;
   position: relative;
 }
@@ -73,7 +72,6 @@ img {
   font-size: 20px;
 }
 
-/* HeadingTwo Styles */
 .content-HeadingTwo {
   width: 100%;
   max-width: 1200px;
@@ -92,7 +90,6 @@ img {
   object-fit: contain;
 }
 
-/* HeadingThree Styles */
 .HeadingThree {
   background-color: #2d4b81;
   color: #d4ddee;
@@ -120,7 +117,6 @@ img {
   margin-right: 30px;
 }
 
-/* Maps Styles */
 .content-maps {
   width: 100%;
   max-width: 1200px;
@@ -136,6 +132,27 @@ img {
 .map-container {
   width: 100%;
   overflow: hidden;
+}
+
+.card {
+  width: 80%;
+
+}
+
+.btn-submit {
+  background-color: #2d4b81;
+  color: white;
+  border-radius: 20px;
+  border: none;
+  transition: 0.2s;
+  padding: 10px 20px;
+}
+
+.btn-submit:hover {
+  background-color: #ffff;
+  color: #2d4b81;
+  transition: 0.2s;
+  border: 1px solid #2d4b81;
 }
 
 iframe {
