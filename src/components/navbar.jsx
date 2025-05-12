@@ -41,12 +41,12 @@ function Navbar() {
           <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul className="nav nav-pills">
               <li className="nav-item">
-                <a className="nav-link" href="#scrollspyHeading1" onClick={() => navigate("/")}>
+                <a className="nav-link" onClick={() => navigate("/")}>
                   Home
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#scrollspyHeading2" onClick={() => navigate("/profile")}>
+                <a className="nav-link" onClick={() => navigate("/profile")}>
                   Profile
                 </a>
               </li>
@@ -62,22 +62,22 @@ function Navbar() {
                 </a>
                 <ul className="dropdown-menu">
                   <li>
-                    <a className="dropdown-item" href="#scrollspyHeading3" onClick={() => navigate("/infografis")}>
+                    <a className="dropdown-item" onClick={() => navigate("/infografis")}>
                       Infografis
                     </a>
                   </li>
                   <li>
-                    <a className="dropdown-item" href="#scrollspyHeading4" onClick={() => navigate("/berita")}>
+                    <a className="dropdown-item" onClick={() => navigate("/berita")}>
                       Berita
                     </a>
                   </li>
                   <li>
-                    <a className="dropdown-item" href="#scrollspyHeading5" onClick={() => navigate("/eLapor")}>
+                    <a className="dropdown-item" onClick={() => navigate("/eLapor")}>
                       E-Lapor
                     </a>
                   </li>
                   <li>
-                    <a className="dropdown-item" href="#scrollspyHeading5" onClick={() => navigate("/login")}>
+                    <a className="dropdown-item" onClick={() => navigate("/login")}>
                       Masuk Admin
                     </a>
                   </li>

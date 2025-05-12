@@ -50,26 +50,26 @@ function ELapor() {
               langsung dan efisien kepada pihak terkait.
             </p>
             <div className="form-group">
-              <label htmlFor="name">Nama</label>
               <input
                 className="form-control"
                 type="text"
                 name="name"
+                placeholder="Nama Anda"
                 id="name"
                 required
               />
             </div>
             <div className="form-group">
-              <label htmlFor="message">Pesan</label>
               <textarea
                 className="form-control"
                 name="message"
+                placeholder="Tulis pesan Anda di sini..."
                 id="message"
                 rows="5"
                 required
               />
             </div>
-            <button type="submit" className="btn btn-primary w-100">
+            <button type="submit" className="btn-submit w-100" >
               Kirim
             </button>
           </form>

@@ -66,6 +66,10 @@ const NavbarAdmin = () => {
             </div>
           </div>
         </nav>
+        <div className="p-4">
+          <h1>Welcome to {activeLink}</h1>
+          <p>This is the main content area for the {activeLink} page.</p>
+        </div>
       </div>
     </div>
   );
