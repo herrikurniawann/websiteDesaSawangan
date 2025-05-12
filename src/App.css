@@ -241,6 +241,80 @@ iframe {
   min-height: 900px;
 }
 
+.sidebar {
+  width: 250px;
+  min-height: 100vh;
+  transition: width 0.3s ease, transform 0.3s ease;
+  overflow-x: hidden;
+}
+
+.sidebar.closed {
+  width: 60px;
+}
+
+.sidebar .nav-link {
+  padding: 10px 15px;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+}
+
+.sidebar.closed .nav-link {
+  text-align: center;
+  padding: 10px 0;
+}
+
+.sidebar-header button {
+  text-decoration: none;
+  color: white;
+  border: none;
+  background: none;
+  font-size: 1.2rem;
+}
+
+.elapor-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+  padding: 30px 20px;
+  background-color: #ffffff;
+  gap: 30px;
+  align-items: center;
+  justify-content: center;
+}
+
+.elapor-form {
+  padding: 25px 30px;
+  border-radius: 12px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.form-title {
+  text-align: center;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: #343a40;
+}
+
+.form-desc {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #555;
+  font-size: 0.95rem;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.elapor-wrapper {
+  height: 65vh;
+  margin-top: 10rem;
+}
+
+
 /* Media queries for responsiveness */
 @media (max-width: 1200px) {
   .content-HeadingTwo,
@@ -346,6 +420,25 @@ iframe {
   .section-title {
     font-size: 1.5rem;
   }
+
+  .elapor-wrapper {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .elapor-left, .elapor-right {
+    flex: 1 1 100%;
+    text-align: center;
+  }
+
+  .elapor-image {
+    max-width: 80%;
+    margin-bottom: 20px;
+  }
+
+  .elapor-form {
+    padding: 20px;
+  }
   
   iframe {
     height: 450px;
@@ -398,6 +491,11 @@ iframe {
     font-size: 0.9rem;
     padding: 0.4rem;
     margin: 4px;
+  }
+
+  .elapor-wrapper {
+    height: 70vh;
+    margin-top: 10rem;
   }
   
   iframe {

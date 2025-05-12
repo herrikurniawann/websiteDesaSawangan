@@ -1,11 +1,12 @@
 import React from "react";
+import NavbarAdmin from "../components/adminNavbar";
 
 function Admin() {
-    return (
-        <div className="admin">
-            <h1>ini adalah admin</h1>
-        </div>
-    );
+  return (
+    <>
+    <NavbarAdmin />
+    </>
+  );
 }
 
 export default Admin;

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Navbar from "../components/navbar.jsx";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 function Login() {
   const [formType, setFormType] = useState("login");
@@ -9,6 +10,7 @@ function Login() {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const navigate = useNavigate();
+  const MySwal = Swal;
 
 
   const [showPassword, setShowPassword] = useState(false);
@@ -17,13 +19,18 @@ function Login() {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    alert(`Login dengan email: ${email} dan password: ${password}`);
+    MySwal.fire({
+      title: "Berhasil",
+      text: "Email berhasil dikirim!",
+      icon: "success"
+    });
     navigate("/admin");
   };
 
   const handleChangePassword = (e) => {
     e.preventDefault();
     alert(`Password berhasil diubah dari ${oldPassword} ke ${newPassword}`);
+    
   };
 
   return (
