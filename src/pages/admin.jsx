@@ -1,5 +1,5 @@
 import React from "react";
-import NavbarAdmin from "../components/adminNavbar";
+import NavbarAdmin from "../components/admin/adminNavbar";
 import ContentAdminOne from "../components/contentAdminOne";
 
 function Admin() {
