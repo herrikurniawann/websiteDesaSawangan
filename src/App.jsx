@@ -6,7 +6,9 @@ import Infografis from "./pages/inforgrafis";
 import Berita from "./pages/berita";
 import ELapor from "./pages/eLapor";
 import Login from "./pages/login";
-import Admin from "./pages/admin";
+import Dashboard from "./components/admin/dataPenduduk";
+import ProfileAdmin from "./components/admin/berita";
+import Settings from "./components/admin/galeri";
 
 function App() {
   return (
@@ -18,7 +20,9 @@ function App() {
         <Route path="/berita" element={<Berita />} />
         <Route path="/eLapor" element={<ELapor />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/admin" element={<Admin />} />
+        <Route path="/adminContentOne" element={<Dashboard />} />
+        <Route path="/adminContentTwo" element={<ProfileAdmin />} />
+        <Route path="/adminContentThree" element={<Settings />} />
       </Routes>
     </Router>
   );

@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 
-function Navbar() {
+function Navbar({ menuItems = [] }) {
   const [isCollapsed, setIsCollapsed] = useState(true);
-
-  useEffect(() => {}, []);
   const navigate = useNavigate();
+  
+  const handleNavigate = (path) => {
+    navigate(path);
+    setIsCollapsed(true);
+  };
 
   return (
     <>
@@ -24,68 +27,56 @@ function Navbar() {
               <span className="fw-bold fs-4 mt-0">Sawangan</span>
             </div>
           </div>
-          
+
           <button
             className="navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarNav"
             aria-controls="navbarNav"
-            aria-expanded="false"
+            aria-expanded={!isCollapsed}
             aria-label="Toggle navigation"
             onClick={() => setIsCollapsed(!isCollapsed)}
           >
             <span className="navbar-toggler-icon"></span>
           </button>
-          
-          <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
+
+          <div className={`collapse navbar-collapse justify-content-end ${isCollapsed ? '' : 'show'}`} id="navbarNav">
             <ul className="nav nav-pills">
-              <li className="nav-item">
-                <a className="nav-link" onClick={() => navigate("/")}>
-                  Home
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" onClick={() => navigate("/profile")}>
-                  Profile
-                </a>
-              </li>
-              <li className="nav-item dropdown">
-                <a
-                  className="nav-link dropdown-toggle"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  MenuLain
-                </a>
-                <ul className="dropdown-menu">
-                  <li>
-                    <a className="dropdown-item" onClick={() => navigate("/infografis")}>
-                      Infografis
+              {menuItems.map((item, index) =>
+                item.type === "dropdown" ? (
+                  <li className="nav-item dropdown" key={index}>
+                    <a
+                      className="nav-link dropdown-toggle"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      {item.label}
+                    </a>
+                    <ul className="dropdown-menu">
+                      {item.children.map((child, cIdx) => (
+                        <li key={cIdx}>
+                          <a className="dropdown-item" onClick={() => handleNavigate(child.path)}>
+                            {child.label}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </li>
+                ) : (
+                  <li className="nav-item" key={index}>
+                    <a className="nav-link" onClick={() => handleNavigate(item.path)}>
+                      {item.label}
                     </a>
                   </li>
-                  <li>
-                    <a className="dropdown-item" onClick={() => navigate("/berita")}>
-                      Berita
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" onClick={() => navigate("/eLapor")}>
-                      E-Lapor
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" onClick={() => navigate("/login")}>
-                      Masuk Admin
-                    </a>
-                  </li>
-                </ul>
-              </li>
+                )
+              )}
             </ul>
           </div>
         </div>
       </nav>
+
       <div
         data-bs-spy="scroll"
         data-bs-target="#navbar-example2"

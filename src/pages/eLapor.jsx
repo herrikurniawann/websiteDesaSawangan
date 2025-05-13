@@ -7,6 +7,20 @@ import Navbar from "../components/navbar";
 function ELapor() {
   const form = useRef();
   const MySwal = Swal;
+  const menuItems = [
+    { label: "Home", path: "/" },
+    { label: "Profile", path: "/profile" },
+    {
+      label: "Lainnya",
+      type: "dropdown",
+      children: [
+        { label: "Infografis", path: "/infografis" },
+        { label: "Berita", path: "/berita" },
+        { label: "E-Lapor", path: "/eLapor" },
+        { label: "Masuk Admin", path: "/login" },
+      ],
+    },
+  ];
 
   useEffect(() => {
     emailjs.init("NDKF57pyxCesOUYVx");
@@ -39,7 +53,7 @@ function ELapor() {
 
   return (
     <>
-      <Navbar />
+      <Navbar menuItems={menuItems} />
       <div className="elapor-wrapper">
         <div className="elapor-right">
           <form ref={form} onSubmit={sendEmail} className="elapor-form">
@@ -69,7 +83,7 @@ function ELapor() {
                 required
               />
             </div>
-            <button type="submit" className="btn-submit w-100" >
+            <button type="submit" className="btn-submit w-100">
               Kirim
             </button>
           </form>

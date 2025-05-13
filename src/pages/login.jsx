@@ -24,7 +24,7 @@ function Login() {
       text: "Email berhasil dikirim!",
       icon: "success"
     });
-    navigate("/admin");
+    navigate("/adminContentOne");
   };
 
   const handleChangePassword = (e) => {
