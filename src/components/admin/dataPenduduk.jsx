@@ -7,6 +7,7 @@ function Dashboard() {
     { label: "Dashboard", path: "/adminContentOne" },
     { label: "Profile", path: "/adminContentTwo" },
     { label: "Settings", path: "/adminContentThree" },
+    { label: "Galeri", path: "/galeriForm" },
     { label: "logout", path: "/logout", type: "none" },
   ];
 

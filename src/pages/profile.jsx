@@ -21,6 +21,7 @@ function Profile() {
         { label: "Infografis", path: "/infografis" },
         { label: "Berita", path: "/berita" },
         { label: "E-Lapor", path: "/eLapor" },
+        { label: "Galeri", path: "/galeri" },
         { label: "Masuk Admin", path: "/login" },
       ],
     },

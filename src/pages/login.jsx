@@ -11,6 +11,21 @@ function Login() {
   const [newPassword, setNewPassword] = useState("");
   const navigate = useNavigate();
   const MySwal = Swal;
+  const menuItems = [
+    { label: "Home", path: "/" },
+    { label: "Profile", path: "/profile" },
+    {
+      label: "Lainnya",
+      type: "dropdown",
+      children: [
+        { label: "Infografis", path: "/infografis" },
+        { label: "Berita", path: "/berita" },
+        { label: "E-Lapor", path: "/eLapor" },
+        { label: "Galeri", path: "/galeri" },
+        { label: "Masuk Admin", path: "/login" },
+      ],
+    },
+  ];
 
 
   const [showPassword, setShowPassword] = useState(false);
@@ -35,7 +50,7 @@ function Login() {
 
   return (
     <>
-      <Navbar />
+      <Navbar menuItems={menuItems} />
       <div className="vh-100 d-flex justify-content-center align-items-center bg-light">
         <div
           className="card-login shadow p-4 rounded-4 mx-auto"

@@ -2,11 +2,12 @@ import React from "react";
 import Footer from "../footer";
 import Navbar from "../navbar";
 
-function Settings() {
+function GaleriForm() {
   const menuItems = [
     { label: "Dashboard", path: "/adminContentOne" },
     { label: "Profile", path: "/adminContentTwo" },
     { label: "Settings", path: "/adminContentThree" },
+    { label: "Galeri", path: "/galeriForm" },
     { label: "logout", path: "/logout", type: "none" },
   ];
   return (
@@ -21,4 +22,4 @@ function Settings() {
   );
 }
 
-export default Settings;
+export default GaleriForm;

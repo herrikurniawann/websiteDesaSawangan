@@ -2,7 +2,7 @@ import React from "react";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
 
-function Infografis() {
+function Galeri() {
   const menuItems = [
     { label: "Home", path: "/" },
     { label: "Profile", path: "/profile" },
@@ -22,11 +22,15 @@ function Infografis() {
   return (
     <>
       <Navbar menuItems={menuItems} />
-      <div className="container py-5 mt-5">
-        <h1 className="text-center my-4">Infografis Desa</h1>
+      <div className="container-fluid p-0">
         <div className="row">
           <div className="col-12">
-            <p>Halaman infografis desa sedang dalam pengembangan.</p>
+            <h1 className="text-center">Galeri</h1>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-12">
+            <p className="text-center">Berisi foto-foto kegiatan di desa</p>
           </div>
         </div>
       </div>
@@ -35,4 +39,4 @@ function Infografis() {
   );
 }
 
-export default Infografis;
+export default Galeri;
