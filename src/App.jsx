@@ -7,9 +7,8 @@ import Berita from "./pages/berita";
 import ELapor from "./pages/eLapor";
 import Login from "./pages/login";
 import Dashboard from "./components/admin/dataPenduduk";
-import ProfileAdmin from "./components/admin/beritaForm";
-import Settings from "./components/admin/galeriForm";
-import GaleriForm from "./components/admin/galeriForm";
+import GaleriBeritaForm from "./components/admin/galeriForm";
+import ProfileForm from "./components/admin/profileForm";
 import Galeri from "./pages/galeri";
 
 function App() {
@@ -24,9 +23,8 @@ function App() {
         <Route path="/eLapor" element={<ELapor />} />
         <Route path="/login" element={<Login />} />
         <Route path="/data" element={<Dashboard />} />
-        <Route path="/beritaForm" element={<ProfileAdmin />} />
-        <Route path="/galeriForm" element={<GaleriForm />} />
-        <Route path="/profileForm" element={<Settings />} />
+        <Route path="/galeriForm" element={<GaleriBeritaForm />} />
+        <Route path="/profileForm" element={<ProfileForm />} />
       </Routes>
     </Router>
   );

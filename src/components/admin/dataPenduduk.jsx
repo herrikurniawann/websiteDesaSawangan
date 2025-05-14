@@ -5,9 +5,8 @@ import Footer from "../footer";
 function Dashboard() {
   const menuItems = [
     { label: "Data", path: "/data" },
-    { label: "Berita", path: "/beritaForm" },
-    { label: "Profile", path: "/profileForm" },
     { label: "Galeri", path: "/galeriForm" },
+    { label: "Profile", path: "/profileForm" },
     { label: "logout", path: "/logout", type: "none" },
   ];
 

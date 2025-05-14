@@ -2,16 +2,16 @@ import React, { useState } from "react";
 import Navbar from "../navbar";
 import Footer from "../footer";
 
-function GaleriForm() {
+function GaleriBeritaForm() {
   const menuItems = [
     { label: "Data", path: "/data" },
-    { label: "Berita", path: "/beritaForm" },
-    { label: "Profile", path: "/profileForm" },
     { label: "Galeri", path: "/galeriForm" },
+    { label: "Profile", path: "/profileForm" },
     { label: "logout", path: "/logout", type: "none" },
   ];
 
   const [form1Title, setForm1Title] = useState("");
+  const [form1Description, setForm1Description] = useState("");
   const [form1Image, setForm1Image] = useState(null);
   const [form1Preview, setForm1Preview] = useState(null);
 
@@ -38,12 +38,14 @@ function GaleriForm() {
     e.preventDefault();
     const newItem = {
       title: form1Title,
+      description: form1Description,
       image: form1Preview,
     };
     setSubmitted1([...submitted1, newItem]);
 
     // Reset
     setForm1Title("");
+    setForm1Description("");
     setForm1Image(null);
     setForm1Preview(null);
   };
@@ -67,7 +69,10 @@ function GaleriForm() {
       <Navbar menuItems={menuItems} />
       <div className="container-form d-flex flex-column align-items-center py-5 mt-5">
         <h2 className="mb-4">Form 1 - Upload Berita</h2>
-        <form onSubmit={handleSubmitForm1} className="mb-5 border p-3 rounded bg-light">
+        <form
+          onSubmit={handleSubmitForm1}
+          className="mb-5 border p-3 rounded bg-light"
+        >
           <div className="mb-3">
             <label className="form-label">Judul</label>
             <input
@@ -76,6 +81,18 @@ function GaleriForm() {
               value={form1Title}
               onChange={(e) => setForm1Title(e.target.value)}
               required
+            />
+          </div>
+
+          <div className="mb-3">
+            <label className="form-label">Deskripsi</label>
+            <textarea
+              className="form-control"
+              rows="4"
+              value={form1Description}
+              onChange={(e) => setForm1Description(e.target.value)}
+              required
+              placeholder="Masukkan deskripsi berita di sini..."
             />
           </div>
 
@@ -104,7 +121,10 @@ function GaleriForm() {
         </form>
 
         <h2 className="mb-4">Form 2 - Upload Galeri</h2>
-        <form onSubmit={handleSubmitForm2} className="mb-5 border p-3 rounded bg-light">
+        <form
+          onSubmit={handleSubmitForm2}
+          className="mb-5 border p-3 rounded bg-light"
+        >
           <div className="mb-3">
             <label className="form-label">Judul</label>
             <input
@@ -152,6 +172,7 @@ function GaleriForm() {
                   style={{ maxHeight: 200, objectFit: "cover" }}
                 />
                 <h5>{item.title}</h5>
+                <p className="text-muted">{item.description}</p>
               </div>
             </div>
           ))}
@@ -179,4 +200,4 @@ function GaleriForm() {
   );
 }
 
-export default GaleriForm;
+export default GaleriBeritaForm;

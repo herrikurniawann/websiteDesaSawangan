@@ -315,13 +315,12 @@ iframe {
 }
 
 .container-form {
-  height: 100vh;
+  height: 100%;
   margin-top: 9rem;
   margin: auto;
 }
 
 
-/* Media queries for responsiveness */
 @media (max-width: 1200px) {
   .content-HeadingTwo,
   .content-HeadingThree,
