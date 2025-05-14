@@ -39,7 +39,7 @@ function Login() {
       text: "Email berhasil dikirim!",
       icon: "success"
     });
-    navigate("/adminContentOne");
+    navigate("/data");
   };
 
   const handleChangePassword = (e) => {

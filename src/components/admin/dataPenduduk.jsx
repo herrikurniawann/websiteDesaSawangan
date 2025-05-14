@@ -118,7 +118,7 @@ function Dashboard() {
                 <div className="card-header">Lorong {index + 1}</div>
                 <div className="card-body">
                   <div className="mb-3">
-                    <label>NIK Kepala Keluarga</label>
+                    <label>NIK</label>
                     <input
                       className="form-control"
                       value={formData[index].nik}
@@ -126,7 +126,7 @@ function Dashboard() {
                     />
                   </div>
                   <div className="mb-3">
-                    <label>Nama Kepala Keluarga</label>
+                    <label>Nama</label>
                     <input
                       className="form-control"
                       value={formData[index].nama}
