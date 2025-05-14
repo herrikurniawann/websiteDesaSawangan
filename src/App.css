@@ -1,3 +1,4 @@
+/* Global Styles */
 * {
   margin: 0;
   padding: 0;
@@ -11,13 +12,14 @@ body {
   scroll-behavior: smooth;
 }
 
-nav {
-  border-bottom: 3px solid black;
-}
-
 img {
   width: 100px;
   height: 100px;
+}
+
+/* Navbar */
+nav {
+  border-bottom: 3px solid black;
 }
 
 .nav-link {
@@ -32,6 +34,21 @@ img {
   background-color: #2d4b81;
 }
 
+.nav-pills .nav-link.active {
+  background-color: #2d4b81;
+}
+
+.nav-pills .nav-link {
+  color: #4a5568;
+  cursor: pointer;
+}
+
+.nav-pills .nav-link:hover:not(.active) {
+  color: #1a56db;
+  background-color: #e2e8f0;
+}
+
+/* Heading One */
 .headingOne {
   height: 100vh;
   overflow: hidden;
@@ -71,6 +88,7 @@ img {
   font-size: 20px;
 }
 
+/* Heading Two */
 .content-HeadingTwo {
   width: 100%;
   max-width: 1200px;
@@ -89,6 +107,7 @@ img {
   object-fit: contain;
 }
 
+/* Heading Three */
 .HeadingThree {
   background-color: #2d4b81;
   color: #d4ddee;
@@ -116,6 +135,7 @@ img {
   margin-right: 30px;
 }
 
+/* Maps Section */
 .content-maps {
   width: 100%;
   max-width: 1200px;
@@ -133,74 +153,13 @@ img {
   overflow: hidden;
 }
 
-.card {
-  width: 80%;
-
-}
-
-.btn-submit {
-  background-color: #2d4b81;
-  color: white;
-  border-radius: 20px;
-  border: none;
-  transition: 0.2s;
-  padding: 10px 20px;
-}
-
-.btn-submit:hover {
-  background-color: #ffff;
-  color: #2d4b81;
-  transition: 0.2s;
-  border: 1px solid #2d4b81;
-}
-
 iframe {
   border-radius: 20px;
   width: 100%;
   height: 750px;
 }
 
-.header-bg {
-  background: url('./assets/desaSawangan.jpg') no-repeat center center/cover;
-  height: 60vh;
-  overflow: hidden;
-  position: relative;
-  color: #ffff;
-  font-weight: bold;
-}
-
-.text-content-profile {
-  margin-top: 15rem;
-  text-align: center;
-}
-
-.text-content-profile .fs {
-  font-size: 13px;
-}
-
-.header-bg .overlay {
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
-  z-index: 2;
-}
-
-.nav-pills .nav-link.active {
-  background-color: #2d4b81;
-}
-
-.nav-pills .nav-link {
-  color: #4a5568;
-  cursor: pointer;
-}
-
-.nav-pills .nav-link:hover:not(.active) {
-  color: #1a56db;
-  background-color: #e2e8f0;
-}
-
+/* Cards */
 .card {
   margin: auto;
   width: 100%;
@@ -222,6 +181,14 @@ iframe {
   transform: translateY(-2px);
 }
 
+.card-title {
+  color: #1e40af;
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 0.75rem;
+}
+
+/* Section Titles */
 .section-title {
   color: #1a56db;
   font-weight: bold;
@@ -230,21 +197,59 @@ iframe {
   border-bottom: 2px solid #d1e1ff;
 }
 
-.card-title {
-  color: #1e40af;
-  font-weight: 600;
-  font-size: 1.1rem;
-  margin-bottom: 0.75rem;
+/* Buttons */
+.btn-submit {
+  background-color: #2d4b81;
+  color: white;
+  border-radius: 20px;
+  border: none;
+  transition: 0.2s;
+  padding: 10px 20px;
 }
 
-.tab-content {
-  min-height: 900px;
+.btn-submit:hover {
+  background-color: #ffff;
+  color: #2d4b81;
+  transition: 0.2s;
+  border: 1px solid #2d4b81;
 }
 
+/* Header Background */
+.header-bg {
+  background: url("./assets/desaSawangan.jpg") no-repeat center center/cover;
+  height: 60vh;
+  overflow: hidden;
+  position: relative;
+  color: #ffff;
+  font-weight: bold;
+}
+
+.header-bg .overlay {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 2;
+}
+
+/* Profile Section */
+.text-content-profile {
+  margin-top: 15rem;
+  text-align: center;
+}
+
+.text-content-profile .fs {
+  font-size: 13px;
+}
+
+/* Sidebar */
 .sidebar {
   width: 250px;
   min-height: 100vh;
-  transition: width 0.3s ease, transform 0.3s ease;
+  transition:
+    width 0.3s ease,
+    transform 0.3s ease;
   overflow-x: hidden;
 }
 
@@ -271,6 +276,7 @@ iframe {
   font-size: 1.2rem;
 }
 
+/* Forms */
 .elapor-wrapper {
   display: flex;
   flex-wrap: wrap;
@@ -309,18 +315,17 @@ iframe {
   margin-bottom: 20px;
 }
 
-.elapor-wrapper {
-  height: 65vh;
-  margin-top: 10rem;
-}
-
 .container-form {
   height: 100%;
   margin-top: 9rem;
   margin: auto;
 }
 
+.admin-content {
+  margin-top: 6rem ;
+}
 
+/* Responsive Styles */
 @media (max-width: 1200px) {
   .content-HeadingTwo,
   .content-HeadingThree,
@@ -333,18 +338,18 @@ iframe {
   .headingOne-content h1 {
     font-size: 60px;
   }
-  
+
   .content-HeadingTwo h1,
   .content-HeadingThree h1,
   .content-maps h1 {
     font-size: 48px;
   }
-  
+
   .information-assets {
     width: 280px;
     height: 280px;
   }
-  
+
   .content-HeadingThree img {
     width: 250px;
     height: 250px;
@@ -354,15 +359,10 @@ iframe {
     height: 80vh;
   }
 
-  .card {
-    margin: auto;
-    width: 100%;
-  }
-  
   .info-card {
     padding: 0.75rem;
   }
-  
+
   iframe {
     height: 600px;
   }
@@ -372,29 +372,29 @@ iframe {
   .headingOne-content h1 {
     font-size: 40px;
   }
-  
+
   .headingOne-content p {
     font-size: 16px;
   }
-  
+
   .content-HeadingTwo,
   .content-HeadingThree,
   .content-maps {
     width: 90%;
   }
-  
+
   .content-HeadingTwo h1,
   .content-HeadingThree h1,
   .content-maps h1 {
     font-size: 36px;
   }
-  
+
   .information-assets {
     width: 220px;
     height: 220px;
     margin-top: 20px;
   }
-  
+
   .content-HeadingThree img {
     width: 200px;
     height: 200px;
@@ -405,33 +405,13 @@ iframe {
     height: 80vh;
   }
 
-  .card {
-    margin: auto;
-    width: 100%;
-  }
-  
-  .display-4 {
-    font-size: 2.5rem;
-  }
-  
-  .fs-4 {
-    font-size: 1.1rem !important;
-  }
-  
-  .fs-5 {
-    font-size: 1rem !important;
-  }
-  
-  .section-title {
-    font-size: 1.5rem;
-  }
-
   .elapor-wrapper {
     flex-direction: column;
     padding: 20px;
   }
 
-  .elapor-left, .elapor-right {
+  .elapor-left,
+  .elapor-right {
     flex: 1 1 100%;
     text-align: center;
   }
@@ -444,7 +424,7 @@ iframe {
   .elapor-form {
     padding: 20px;
   }
-  
+
   iframe {
     height: 450px;
   }
@@ -454,23 +434,23 @@ iframe {
   .headingOne-content h1 {
     font-size: 32px;
   }
-  
+
   .content-HeadingTwo h1,
   .content-HeadingThree h1,
   .content-maps h1 {
     font-size: 28px;
   }
-  
+
   .content-HeadingTwo,
   .content-HeadingThree {
     flex-direction: column;
     text-align: center;
   }
-  
+
   .information-assets {
     margin: 20px auto;
   }
-  
+
   .content-HeadingThree img {
     margin: 0 auto 20px;
   }
@@ -479,30 +459,11 @@ iframe {
     height: 80vh;
   }
 
-  .card {
-    margin: auto;
-    width: 100%;
-  }
-  
-  .display-4 {
-    font-size: 2rem;
-  }
-  
-  .section-title {
-    font-size: 1.3rem;
-  }
-  
-  .nav-pills .nav-link {
-    font-size: 0.9rem;
-    padding: 0.4rem;
-    margin: 4px;
-  }
-
   .elapor-wrapper {
     height: 70vh;
     margin-top: 10rem;
   }
-  
+
   iframe {
     height: 350px;
   }
