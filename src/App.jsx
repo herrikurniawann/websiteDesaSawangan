@@ -23,10 +23,10 @@ function App() {
         <Route path="/berita" element={<Berita />} />
         <Route path="/eLapor" element={<ELapor />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/data" element={<Dashboard />} />
+        <Route path="/beritaForm" element={<ProfileAdmin />} />
         <Route path="/galeriForm" element={<GaleriForm />} />
-        <Route path="/adminContentOne" element={<Dashboard />} />
-        <Route path="/adminContentTwo" element={<ProfileAdmin />} />
-        <Route path="/adminContentThree" element={<Settings />} />
+        <Route path="/profileForm" element={<Settings />} />
       </Routes>
     </Router>
   );

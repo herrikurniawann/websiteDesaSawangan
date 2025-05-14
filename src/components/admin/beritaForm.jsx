@@ -4,12 +4,13 @@ import Footer from "../footer";
 
 function ProfileAdmin() {
   const menuItems = [
-    { label: "Dashboard", path: "/adminContentOne" },
-    { label: "Profile", path: "/adminContentTwo" },
-    { label: "Settings", path: "/adminContentThree" },
+    { label: "Data", path: "/data" },
+    { label: "Berita", path: "/beritaForm" },
+    { label: "Profile", path: "/profileForm" },
     { label: "Galeri", path: "/galeriForm" },
     { label: "logout", path: "/logout", type: "none" },
   ];
+
   const [newsList, setNewsList] = useState([]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -64,11 +65,14 @@ function ProfileAdmin() {
 
   return (
     <>
-    <Navbar menuItems={menuItems}/>
-      <div className="container py-4">
+      <Navbar menuItems={menuItems} />
+      <div className="container-form py-4">
         <h2 className="mb-3">Form Berita</h2>
 
-        <button className="btn btn-primary mb-3" onClick={() => setShowForm(!showForm)}>
+        <button
+          className="btn btn-primary mb-3"
+          onClick={() => setShowForm(!showForm)}
+        >
           {showForm ? "Tutup Form" : "Tambah Berita"}
         </button>
 
@@ -105,7 +109,12 @@ function ProfileAdmin() {
                 onChange={handleImageChange}
               />
               {preview && (
-                <img src={preview} alt="Preview" className="img-thumbnail mt-2" style={{ maxHeight: 200 }} />
+                <img
+                  src={preview}
+                  alt="Preview"
+                  className="img-thumbnail mt-2"
+                  style={{ maxHeight: 200 }}
+                />
               )}
             </div>
 
@@ -134,17 +143,42 @@ function ProfileAdmin() {
         <div className="row">
           {newsList.map((item, index) => (
             <div className="col-md-4 mb-4" key={index}>
-              <div className="border p-3 rounded shadow-sm h-100 d-flex flex-column">
+              <div
+                className="border rounded p-3 h-100 d-flex flex-column bg-white shadow-sm"
+                style={{ transition: "0.2s", position: "relative" }}
+              >
                 {item.image && (
-                  <img src={item.image} alt="Berita" className="mb-2 img-fluid rounded" />
+                  <img
+                    src={item.image}
+                    alt="Berita"
+                    className="mb-3 img-fluid rounded"
+                    style={{ maxHeight: "200px", objectFit: "cover", width: "100%" }}
+                  />
                 )}
-                <h5>{item.title}</h5>
-                <p className="text-muted">{item.description}</p>
-                <div className="mt-auto">
-                  <button className="btn btn-warning me-2" onClick={() => handleEdit(index)}>
+                <h5 className="fw-bold">{item.title}</h5>
+                <p
+                  className="text-muted"
+                  style={{
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    display: "-webkit-box",
+                    WebkitLineClamp: 3,
+                    WebkitBoxOrient: "vertical",
+                  }}
+                >
+                  {item.description}
+                </p>
+                <div className="mt-auto d-flex justify-content-between">
+                  <button
+                    className="btn btn-sm btn-outline-warning"
+                    onClick={() => handleEdit(index)}
+                  >
                     Edit
                   </button>
-                  <button className="btn btn-danger" onClick={() => handleDelete(index)}>
+                  <button
+                    className="btn btn-sm btn-outline-danger"
+                    onClick={() => handleDelete(index)}
+                  >
                     Hapus
                   </button>
                 </div>

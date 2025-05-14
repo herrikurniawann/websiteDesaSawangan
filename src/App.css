@@ -314,6 +314,12 @@ iframe {
   margin-top: 10rem;
 }
 
+.container-form {
+  height: 100vh;
+  margin-top: 9rem;
+  margin: auto;
+}
+
 
 /* Media queries for responsiveness */
 @media (max-width: 1200px) {

@@ -4,9 +4,9 @@ import Footer from "../footer";
 
 function Dashboard() {
   const menuItems = [
-    { label: "Dashboard", path: "/adminContentOne" },
-    { label: "Profile", path: "/adminContentTwo" },
-    { label: "Settings", path: "/adminContentThree" },
+    { label: "Data", path: "/data" },
+    { label: "Berita", path: "/beritaForm" },
+    { label: "Profile", path: "/profileForm" },
     { label: "Galeri", path: "/galeriForm" },
     { label: "logout", path: "/logout", type: "none" },
   ];
@@ -110,7 +110,7 @@ function Dashboard() {
   return (
     <>
       <Navbar menuItems={menuItems} />
-      <div className="container py-4">
+      <div className="container-fom py-4">
         <h2 className="mb-4 text-center">Input Data Kependudukan per Lorong</h2>
         <div className="row">
           {Array.from({ length: 6 }).map((_, index) => (
