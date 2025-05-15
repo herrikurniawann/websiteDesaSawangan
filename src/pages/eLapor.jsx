@@ -55,10 +55,10 @@ function ELapor() {
   return (
     <>
       <Navbar menuItems={menuItems} />
-      <div className="elapor-wrapper content pt-5">
+      <div className="elapor-wrapper content pt-5" style={{marginTop: "8rem"}}>
         <div className="elapor-right">
           <form ref={form} onSubmit={sendEmail} className="elapor-form">
-            <h2 className="form-title">eLapor</h2>
+            <h1 className="text-center fw-bold m-3">eLapor</h1>
             <p className="form-desc">
               <strong>eLapor</strong> adalah layanan pelaporan digital yang
               memudahkan Anda menyampaikan masukan, keluhan, atau saran secara

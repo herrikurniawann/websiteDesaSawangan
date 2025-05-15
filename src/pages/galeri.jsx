@@ -33,10 +33,10 @@ function Galeri() {
   return (
     <>
       <Navbar menuItems={menuItems} />
-      <div className='content container py-5'>
+      <div className='content container py-5' style={{height: "100%"}}>
         <div className='row'>
           <div className='col-12'>
-            <h1 className='text-center'>Galeri</h1>
+            <h1 className='text-center fw-bold'>Galeri</h1>
           </div>
         </div>
         <div className='row'>

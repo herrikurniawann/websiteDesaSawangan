@@ -80,8 +80,13 @@ nav {
   padding: 0 15px;
 }
 
-.headingOne-content h1 {
+.headingOne-content h1  {
   font-size: 80px;
+  color: white;
+}
+
+.header-bg h1 {
+  color: white;
 }
 
 .headingOne-content p {
@@ -95,7 +100,7 @@ nav {
   padding: 0 15px;
 }
 
-.content-HeadingTwo h1 {
+ h1 {
   font-size: 60px;
   line-height: 1.2;
   color: #2d4b81;
