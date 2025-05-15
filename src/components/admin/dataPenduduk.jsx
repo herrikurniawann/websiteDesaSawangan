@@ -166,7 +166,7 @@ function Dashboard() {
   return (
     <>
       <Navbar menuItems={menuItems} />
-      <div className='admin-content container py-5'>
+      <div className='admin-content container py-5 overflow-x-hiden' style={{overflowX: "hidden"}}>
         <h2 className='mb-4 text-center'>Input Data Kependudukan per Lorong</h2>
         <div className='row'>
           {Array.from({length: 6}).map((_, index) => (
