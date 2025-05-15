@@ -3,13 +3,22 @@ import Navbar from "../navbar";
 import Footer from "../footer";
 import {useMutation, useQuery} from "convex/react";
 import {api} from "../../../convex/_generated/api";
+import { useNavigate } from "react-router-dom";
 
 function GaleriBeritaForm() {
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem("userId");
+    localStorage.removeItem("email");
+    navigate("/login");
+  };
+
   const menuItems = [
-    {label: "Data", path: "/data"},
-    {label: "Galeri", path: "/galeriForm"},
-    {label: "Profile", path: "/profileForm"},
-    {label: "logout", path: "/logout", type: "none"},
+    { label: "Data", path: "/data" },
+    { label: "Galeri", path: "/galeriForm" },
+    { label: "Profile", path: "/profileForm" },
+    { label: "gantiPW", path: "/gantiPW" },
+    { label: "Logout", type: "button", onClick: handleLogout },
   ];
 
   // Loading state for Form 1 and Form 2

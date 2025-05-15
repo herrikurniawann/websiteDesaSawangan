@@ -10,7 +10,7 @@ import Dashboard from "./components/admin/dataPenduduk";
 import GaleriBeritaForm from "./components/admin/galeriForm";
 import ProfileForm from "./components/admin/profileForm";
 import Galeri from "./pages/galeri";
-import GantiPass from "./pages/gantiPass";
+import GantiPass from "./components/admin/gantiPass";
 
 function App() {
   return (

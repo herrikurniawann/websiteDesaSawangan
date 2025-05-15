@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import Navbar from "../components/navbar";
+import Navbar from "../navbar";
 import Swal from "sweetalert2";
 import { useAction } from "convex/react";
-import { api } from "../../convex/_generated/api";
+import { api } from "../../../convex/_generated/api";
 import { useNavigate } from "react-router-dom";
 
 function GantiPass() {
