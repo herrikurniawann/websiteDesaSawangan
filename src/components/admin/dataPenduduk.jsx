@@ -19,7 +19,8 @@ function Dashboard() {
     { label: "Data", path: "/data" },
     { label: "Galeri", path: "/galeriForm" },
     { label: "Profile", path: "/profileForm" },
-    { label: "Logout", type: "button", onClick: handleLogout },,
+    { label: "gantiPW", path: "/gantiPW" },
+    { label: "Logout", type: "button", onClick: handleLogout },
   ];
 
   const allResidents = useQuery(api.resident.getResidents) || [];
