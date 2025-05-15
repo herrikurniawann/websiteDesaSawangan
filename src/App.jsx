@@ -10,6 +10,7 @@ import Dashboard from "./components/admin/dataPenduduk";
 import GaleriBeritaForm from "./components/admin/galeriForm";
 import ProfileForm from "./components/admin/profileForm";
 import Galeri from "./pages/galeri";
+import GantiPass from "./components/admin/gantiPass";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/data" element={<Dashboard />} />
         <Route path="/galeriForm" element={<GaleriBeritaForm />} />
         <Route path="/profileForm" element={<ProfileForm />} />
+        <Route path="/gantiPW" element={<GantiPass />} />
       </Routes>
     </Router>
   );

@@ -1,13 +1,22 @@
 import React from "react";
 import Navbar from "../navbar";
 import Footer from "../footer";
+import { useNavigate } from "react-router-dom";
 
 function ProfileForm() {
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem("userId");
+    localStorage.removeItem("email");
+    navigate("/login");
+  };
+  
   const menuItems = [
-    {label: "Data", path: "/data"},
-    {label: "Galeri", path: "/galeriForm"},
-    {label: "Profile", path: "/profileForm"},
-    {label: "logout", path: "/logout", type: "none"},
+    { label: "Data", path: "/data" },
+    { label: "Galeri", path: "/galeriForm" },
+    { label: "Profile", path: "/profileForm" },
+    { label: "gantiPW", path: "/gantiPW" },
+    { label: "Logout", type: "button", onClick: handleLogout },
   ];
 
   return (
