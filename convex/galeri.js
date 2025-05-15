@@ -28,3 +28,10 @@ export const getFileUrl = query({
     return await ctx.storage.getUrl(args.storageId);
   },
 });
+
+export const deleteGaleri = mutation({
+  args: {id: v.id("galeri")}, // Ensure the table name matches your database
+  handler: async (ctx, {id}) => {
+    await ctx.db.delete(id); // Deletes the item with the given ID
+  },
+});
