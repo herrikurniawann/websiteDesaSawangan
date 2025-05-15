@@ -64,6 +64,7 @@ function Galeri() {
   );
 }
 
+// ini bekeng komponen baru nanti
 function ImageCard({storageId, source}) {
   const fileUrl = useQuery(api.galeri.getFileUrl, {storageId});
 
