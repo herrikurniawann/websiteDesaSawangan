@@ -55,7 +55,7 @@ function ELapor() {
   return (
     <>
       <Navbar menuItems={menuItems} />
-      <div className="elapor-wrapper vh-100">
+      <div className="elapor-wrapper content pt-5">
         <div className="elapor-right">
           <form ref={form} onSubmit={sendEmail} className="elapor-form">
             <h2 className="form-title">eLapor</h2>

@@ -11,9 +11,10 @@ function GaleriBeritaForm() {
     {label: "Profile", path: "/profileForm"},
     {label: "logout", path: "/logout", type: "none"},
   ];
-  // loading state form 1 and 2
-  const [loadingForm1, setLoadingForm1] = useState(false); // Loading state for Form 1
-  const [loadingForm2, setLoadingForm2] = useState(false); // Loading state for Form 2
+
+  // Loading state for Form 1 and Form 2
+  const [loadingForm1, setLoadingForm1] = useState(false);
+  const [loadingForm2, setLoadingForm2] = useState(false);
 
   // State for Form 1 (Berita)
   const [form1Title, setForm1Title] = useState("");
@@ -29,10 +30,12 @@ function GaleriBeritaForm() {
   // Convex hooks
   const generateBeritaUploadUrl = useMutation(api.berita.generateUploadUrl);
   const saveBerita = useMutation(api.berita.saveBerita);
+  const deleteBerita = useMutation(api.berita.deleteBerita); // Mutation to delete berita
   const listBerita = useQuery(api.berita.listBerita);
 
   const generateGaleriUploadUrl = useMutation(api.galeri.generateUploadUrl);
   const saveGaleri = useMutation(api.galeri.saveGaleri);
+  const deleteGaleri = useMutation(api.galeri.deleteGaleri); // Mutation to delete galeri
   const listGaleri = useQuery(api.galeri.listGaleri);
 
   const handleForm1ImageChange = (e) => {
@@ -55,7 +58,7 @@ function GaleriBeritaForm() {
     e.preventDefault();
     if (!form1Image) return;
 
-    setLoadingForm1(true); // Set loading state to true
+    setLoadingForm1(true);
     try {
       const postUrl = await generateBeritaUploadUrl();
       const result = await fetch(postUrl, {
@@ -75,7 +78,7 @@ function GaleriBeritaForm() {
       setForm1Image(null);
       setForm1Preview(null);
     } finally {
-      setLoadingForm1(false); // Reset loading state
+      setLoadingForm1(false);
     }
   };
 
@@ -83,7 +86,7 @@ function GaleriBeritaForm() {
     e.preventDefault();
     if (!form2Image) return;
 
-    setLoadingForm2(true); // Set loading state to true
+    setLoadingForm2(true);
     try {
       const postUrl = await generateGaleriUploadUrl();
       const result = await fetch(postUrl, {
@@ -101,14 +104,38 @@ function GaleriBeritaForm() {
       setForm2Image(null);
       setForm2Preview(null);
     } finally {
-      setLoadingForm2(false); // Reset loading state
+      setLoadingForm2(false);
+    }
+  };
+
+  const handleDeleteBerita = async (id) => {
+    if (window.confirm("Apakah Anda yakin ingin menghapus berita ini?")) {
+      try {
+        await deleteBerita({id});
+        alert("Berita berhasil dihapus!");
+      } catch (error) {
+        console.error("Error deleting berita:", error);
+        alert("Terjadi kesalahan saat menghapus berita.");
+      }
+    }
+  };
+
+  const handleDeleteGaleri = async (id) => {
+    if (window.confirm("Apakah Anda yakin ingin menghapus galeri ini?")) {
+      try {
+        await deleteGaleri({id});
+        alert("Galeri berhasil dihapus!");
+      } catch (error) {
+        console.error("Error deleting galeri:", error);
+        alert("Terjadi kesalahan saat menghapus galeri.");
+      }
     }
   };
 
   return (
     <>
       <Navbar menuItems={menuItems} />
-      <div className='admin-content py-5 container '>
+      <div className='admin-content py-5 container'>
         <h2 className='mb-4'>Upload Berita</h2>
         <form onSubmit={handleSubmitForm1} className='mb-5 border p-3 rounded bg-light'>
           <div className='mb-3'>
@@ -153,14 +180,21 @@ function GaleriBeritaForm() {
         <h3>Data Berita</h3>
         <div className='row'>
           {listBerita?.map((item) => (
-            <ImageCard key={item._id} title={item.title} description={item.description} storageId={item.storageId} source='berita' />
+            <ImageCard
+              key={item._id}
+              title={item.title}
+              description={item.description}
+              storageId={item.storageId}
+              source='berita'
+              onDelete={() => handleDeleteBerita(item._id)}
+            />
           ))}
         </div>
 
         <h3 className='mt-4'>Data Galeri</h3>
         <div className='row'>
           {listGaleri?.map((item) => (
-            <ImageCard key={item._id} title={item.title} storageId={item.storageId} source='galeri' />
+            <ImageCard key={item._id} title={item.title} storageId={item.storageId} source='galeri' onDelete={() => handleDeleteGaleri(item._id)} />
           ))}
         </div>
       </div>
@@ -169,7 +203,7 @@ function GaleriBeritaForm() {
   );
 }
 
-function ImageCard({title, description, storageId, source}) {
+function ImageCard({title, description, storageId, source, onDelete}) {
   const fileUrl = useQuery(source === "berita" ? api.berita.getFileUrl : api.galeri.getFileUrl, {storageId});
 
   return (
@@ -179,6 +213,9 @@ function ImageCard({title, description, storageId, source}) {
         <div className='card-body'>
           <h5 className='card-title'>{title}</h5>
           {description && <p className='card-text text-muted'>{description}</p>}
+          <button className='btn btn-danger btn-sm' onClick={onDelete}>
+            Hapus
+          </button>
         </div>
       </div>
     </div>
