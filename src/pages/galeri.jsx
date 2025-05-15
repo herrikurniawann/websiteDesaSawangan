@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
 import {useQuery} from "convex/react";
@@ -21,8 +21,14 @@ function Galeri() {
     },
   ];
 
-  // Fetch gallery data from the backend
+  const [loading, setLoading] = useState(true);
   const galleryData = useQuery(api.galeri.listGaleri);
+
+  useEffect(() => {
+    if (galleryData !== undefined) {
+      setLoading(false); // Set loading to false once data is fetched
+    }
+  }, [galleryData]);
 
   return (
     <>
@@ -38,11 +44,20 @@ function Galeri() {
             <p className='text-center'>Berisi foto-foto kegiatan di desa</p>
           </div>
         </div>
-        <div className='row'>
-          {galleryData?.map((item) => (
-            <ImageCard key={item._id} storageId={item.storageId} source='galeri' />
-          ))}
-        </div>
+        {loading ? (
+          <div className='text-center py-5'>
+            <div className='spinner-border text-primary' role='status'>
+              <span className='visually-hidden'>Loading...</span>
+            </div>
+            <p className='mt-3'>Memuat data galeri...</p>
+          </div>
+        ) : (
+          <div className='row'>
+            {galleryData?.map((item) => (
+              <ImageCard key={item._id} storageId={item.storageId} source='galeri' />
+            ))}
+          </div>
+        )}
       </div>
       <Footer />
     </>
