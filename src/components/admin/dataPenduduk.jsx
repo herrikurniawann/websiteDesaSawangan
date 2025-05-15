@@ -1,8 +1,12 @@
 import React, {useState} from "react";
 import Navbar from "../navbar";
 import Footer from "../footer";
+import {useMutation, useQuery} from "convex/react";
+import {api} from "../../../convex/_generated/api";
 
 function Dashboard() {
+  const [loading, setLoading] = useState(Array(6).fill(false));
+
   const menuItems = [
     {label: "Data", path: "/data"},
     {label: "Galeri", path: "/galeriForm"},
@@ -10,14 +14,13 @@ function Dashboard() {
     {label: "logout", path: "/logout", type: "none"},
   ];
 
-  const initialLorongData = Array(6)
-    .fill()
-    .map(() => []);
+  const allResidents = useQuery(api.resident.getResidents) || [];
+  const saveResident = useMutation(api.resident.saveResident);
+  const deleteResident = useMutation(api.resident.deleteResident);
+
   const initialAnggotaData = Array(6)
     .fill()
     .map(() => []);
-
-  const [dataPenduduk, setDataPenduduk] = useState(initialLorongData);
   const [anggotaKeluarga, setAnggotaKeluarga] = useState(initialAnggotaData);
 
   const [formData, setFormData] = useState(
@@ -44,38 +47,53 @@ function Dashboard() {
 
   const tambahAnggota = (lorongIndex) => {
     const updated = [...anggotaKeluarga];
-    updated[lorongIndex].push({nama: "", nik: "", jenisKelamin: "L", pekerjaan: ""});
+    updated[lorongIndex].push({
+      nama: "",
+      nik: "",
+      jenisKelamin: "L",
+      pekerjaan: "",
+    });
     setAnggotaKeluarga(updated);
   };
 
-  const simpanData = (index) => {
+  const simpanData = async (index) => {
     const {nama, nik, pekerjaan, jenisKelamin, kepalaKeluarga} = formData[index];
     if (!nama || !pekerjaan || !nik) {
       alert("Mohon lengkapi data kepala keluarga.");
       return;
     }
 
+    setLoading((prev) => {
+      const updated = [...prev];
+      updated[index] = true; // Set loading state for the current lorong
+      return updated;
+    });
+
     const newData = [
       {
-        nama,
-        nik,
-        pekerjaan,
-        jenisKelamin,
-        kepalaKeluarga: kepalaKeluarga === "true",
+        name: nama,
+        idNumber: nik,
+        occupation: pekerjaan,
+        gender: jenisKelamin,
+        headOfFamily: kepalaKeluarga === "true",
       },
     ];
 
     if (kepalaKeluarga === "true") {
       anggotaKeluarga[index].forEach((a) => {
         if (a.nama && a.pekerjaan && a.nik) {
-          newData.push({...a, kepalaKeluarga: false});
+          newData.push({
+            name: a.nama,
+            idNumber: a.nik,
+            occupation: a.pekerjaan,
+            gender: a.jenisKelamin,
+            headOfFamily: false,
+          });
         }
       });
     }
 
-    const updated = [...dataPenduduk];
-    updated[index] = [...updated[index], ...newData];
-    setDataPenduduk(updated);
+    await saveResident({lorong: index + 1, data: newData});
 
     const newForm = [...formData];
     newForm[index] = {
@@ -86,30 +104,55 @@ function Dashboard() {
       kepalaKeluarga: "false",
     };
     setFormData(newForm);
+
     const resetAnggota = [...anggotaKeluarga];
     resetAnggota[index] = [];
     setAnggotaKeluarga(resetAnggota);
 
+    setLoading((prev) => {
+      const updated = [...prev];
+      updated[index] = false; // Reset loading state for the current lorong
+      return updated;
+    });
+
     alert("Data berhasil disimpan!");
   };
+
+  const groupedByLorong = Array(6)
+    .fill()
+    .map((_, i) => allResidents.filter((r) => r.lorong === i + 1));
 
   const hitungStatistik = () => {
     let total = 0,
       kk = 0,
       laki = 0,
       perempuan = 0;
-    dataPenduduk.forEach((lorong) => {
-      lorong.forEach((p) => {
-        total++;
-        if (p.kepalaKeluarga) kk++;
-        if (p.jenisKelamin === "L") laki++;
-        if (p.jenisKelamin === "P") perempuan++;
-      });
+
+    allResidents.forEach((p) => {
+      total++;
+      if (p.headOfFamily) kk++;
+      if (p.gender === "L") laki++;
+      if (p.gender === "P") perempuan++;
     });
+
     return {total, kk, laki, perempuan};
   };
 
+  const handleDelete = async (id) => {
+    if (window.confirm("Apakah Anda yakin ingin menghapus data ini?")) {
+      try {
+        await deleteResident({id}); // Call the delete mutation
+        alert("Data berhasil dihapus!");
+        // Tidak perlu invalidate manual, karena useQuery akan update otomatis
+      } catch (error) {
+        console.error("Error deleting resident:", error);
+        alert("Terjadi kesalahan saat menghapus data.");
+      }
+    }
+  };
+
   const stats = hitungStatistik();
+
   return (
     <>
       <Navbar menuItems={menuItems} />
@@ -204,8 +247,8 @@ function Dashboard() {
                     </div>
                   )}
 
-                  <button className='btn btn-primary' onClick={() => simpanData(index)}>
-                    Simpan Data
+                  <button className='btn btn-primary' onClick={() => simpanData(index)} disabled={loading[index]}>
+                    {loading[index] ? "Proses..." : "Simpan Data"}
                   </button>
                 </div>
               </div>
@@ -228,6 +271,42 @@ function Dashboard() {
             <p>
               <strong>Perempuan:</strong> {stats.perempuan}
             </p>
+          </div>
+        </div>
+
+        <div className='card mt-4'>
+          <div className='card-header'>Daftar Penduduk</div>
+          <div className='card-body'>
+            <table className='table table-striped'>
+              <thead>
+                <tr>
+                  <th>NIK</th>
+                  <th>Nama</th>
+                  <th>Jenis Kelamin</th>
+                  <th>Pekerjaan</th>
+                  <th>Kepala Keluarga</th>
+                  <th>Lorong</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                {groupedByLorong.flat().map((p) => (
+                  <tr key={p._id}>
+                    <td>{p.nik}</td>
+                    <td>{p.nama}</td>
+                    <td>{p.jenisKelamin === "L" ? "Laki-laki" : "Perempuan"}</td>
+                    <td>{p.pekerjaan}</td>
+                    <td>{p.kepalaKeluarga ? "Ya" : "Tidak"}</td>
+                    <td>{p.lorong}</td>
+                    <td>
+                      <button className='btn btn-danger btn-sm' onClick={() => handleDelete(p._id)}>
+                        Hapus
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

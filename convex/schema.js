@@ -1,5 +1,5 @@
-import { defineSchema, defineTable } from "convex/server";
-import { v } from "convex/values";
+import {defineSchema, defineTable} from "convex/server";
+import {v} from "convex/values";
 
 export default defineSchema({
   berita: defineTable({
@@ -17,4 +17,12 @@ export default defineSchema({
     email: v.string(),
     passwordHash: v.string(),
   }).index("by_email", ["email"]),
+  penduduk: defineTable({
+    lorong: v.number(),
+    nama: v.string(),
+    nik: v.string(),
+    pekerjaan: v.string(),
+    jenisKelamin: v.union(v.literal("L"), v.literal("P")),
+    kepalaKeluarga: v.boolean(),
+  }),
 });

@@ -16,6 +16,7 @@ import type {
 import type * as auth from "../auth.js";
 import type * as berita from "../berita.js";
 import type * as galeri from "../galeri.js";
+import type * as resident from "../resident.js";
 import type * as users from "../users.js";
 
 /**
@@ -30,6 +31,7 @@ declare const fullApi: ApiFromModules<{
   auth: typeof auth;
   berita: typeof berita;
   galeri: typeof galeri;
+  resident: typeof resident;
   users: typeof users;
 }>;
 export declare const api: FilterApi<
