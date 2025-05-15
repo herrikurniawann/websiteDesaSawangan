@@ -5,7 +5,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min";
 function Navbar({ menuItems = [] }) {
   const [isCollapsed, setIsCollapsed] = useState(true);
   const navigate = useNavigate();
-  
+
   const handleNavigate = (path) => {
     navigate(path);
     setIsCollapsed(true);
@@ -20,7 +20,7 @@ function Navbar({ menuItems = [] }) {
               src="/assets/logoMinahasa.png"
               alt="logoMinahasa"
               height="50"
-              style={{ width: 'auto' }}
+              style={{ width: "auto" }}
             />
             <div className="d-flex flex-column" style={{ lineHeight: "1.1" }}>
               <span className="fw-bold fs-4 mb-0">Desa</span>
@@ -41,37 +41,62 @@ function Navbar({ menuItems = [] }) {
             <span className="navbar-toggler-icon"></span>
           </button>
 
-          <div className={`collapse navbar-collapse justify-content-end ${isCollapsed ? '' : 'show'}`} id="navbarNav">
+          <div
+            className={`collapse navbar-collapse justify-content-end ${isCollapsed ? "" : "show"}`}
+            id="navbarNav"
+          >
             <ul className="nav nav-pills">
-              {menuItems.map((item, index) =>
-                item.type === "dropdown" ? (
-                  <li className="nav-item dropdown" key={index}>
-                    <a
-                      className="nav-link dropdown-toggle"
-                      role="button"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      {item.label}
-                    </a>
-                    <ul className="dropdown-menu">
-                      {item.children.map((child, cIdx) => (
-                        <li key={cIdx}>
-                          <a className="dropdown-item" onClick={() => handleNavigate(child.path)}>
-                            {child.label}
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  </li>
-                ) : (
-                  <li className="nav-item" key={index}>
-                    <a className="nav-link" onClick={() => handleNavigate(item.path)}>
-                      {item.label}
-                    </a>
-                  </li>
-                )
-              )}
+              {menuItems.map((item, index) => {
+                if (item.type === "dropdown") {
+                  return (
+                    <li className="nav-item dropdown" key={index}>
+                      <a
+                        className="nav-link dropdown-toggle"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                      >
+                        {item.label}
+                      </a>
+
+                      <ul className="dropdown-menu">
+                        {item.children.map((child, cIdx) => (
+                          <li key={cIdx}>
+                            <a
+                              className="dropdown-item"
+                              onClick={() => handleNavigate(child.path)}
+                            >
+                              {child.label}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </li>
+                  );
+                } else if (item.type === "button") {
+                  return (
+                    <li className="nav-item" key={index}>
+                      <button
+                        className="btn btn-danger ms-3 m-2 p-2"
+                        onClick={item.onClick}
+                      >
+                        {item.label}
+                      </button>
+                    </li>
+                  );
+                } else {
+                  return (
+                    <li className="nav-item" key={index}>
+                      <a
+                        className="nav-link"
+                        onClick={() => handleNavigate(item.path)}
+                      >
+                        {item.label}
+                      </a>
+                    </li>
+                  );
+                }
+              })}
             </ul>
           </div>
         </div>
