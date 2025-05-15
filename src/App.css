@@ -321,8 +321,9 @@ iframe {
   margin: auto;
 }
 
+.content,
 .admin-content {
-  margin-top: 6rem ;
+  margin-top: 6rem;
 }
 
 /* Responsive Styles */
