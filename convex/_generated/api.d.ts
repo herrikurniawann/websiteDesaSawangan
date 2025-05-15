@@ -13,8 +13,10 @@ import type {
   FilterApi,
   FunctionReference,
 } from "convex/server";
+import type * as auth from "../auth.js";
 import type * as berita from "../berita.js";
 import type * as galeri from "../galeri.js";
+import type * as users from "../users.js";
 
 /**
  * A utility for referencing Convex functions in your app's API.
@@ -25,8 +27,10 @@ import type * as galeri from "../galeri.js";
  * ```
  */
 declare const fullApi: ApiFromModules<{
+  auth: typeof auth;
   berita: typeof berita;
   galeri: typeof galeri;
+  users: typeof users;
 }>;
 export declare const api: FilterApi<
   typeof fullApi,

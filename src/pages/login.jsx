@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../components/navbar.jsx";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { useAction } from "convex/react";
+import { api } from "../../convex/_generated/api";
 
 function Login() {
   const [formType, setFormType] = useState("login");
@@ -9,8 +11,18 @@ function Login() {
   const [password, setPassword] = useState("");
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [userId, setUserId] = useState(null);
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [showOldPassword, setShowOldPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+
   const navigate = useNavigate();
   const MySwal = Swal;
+
+  const login = useAction(api.auth.login);
+  const changePassword = useAction(api.auth.changePassword);
+
   const menuItems = [
     { label: "Home", path: "/" },
     { label: "Profile", path: "/profile" },
@@ -27,25 +39,99 @@ function Login() {
     },
   ];
 
+  useEffect(() => {
+    // Load dari localStorage
+    const savedUserId = localStorage.getItem("userId");
+    const savedEmail = localStorage.getItem("email");
+    if (savedUserId) {
+      setUserId(savedUserId);
+    }
+    if (savedEmail) {
+      setEmail(savedEmail);
+    } else {
+      setEmail("admin@gmail.com"); // default kalau belum login
+    }
+  }, [formType]);
 
-  const [showPassword, setShowPassword] = useState(false);
-  const [showOldPassword, setShowOldPassword] = useState(false);
-  const [showNewPassword, setShowNewPassword] = useState(false);
-
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    MySwal.fire({
-      title: "Berhasil",
-      text: "Email berhasil dikirim!",
-      icon: "success"
-    });
-    navigate("/data");
+    try {
+      const result = await login({ email, password });
+      setUserId(result.userId);
+
+      // Simpan ke localStorage
+      localStorage.setItem("userId", result.userId);
+      localStorage.setItem("email", email);
+
+      MySwal.fire({
+        title: "Berhasil",
+        text: "Login berhasil!",
+        icon: "success",
+      });
+
+      navigate("/data");
+    } catch (err) {
+      MySwal.fire({
+        title: "Gagal",
+        text: err.message,
+        icon: "error",
+      });
+    }
   };
 
-  const handleChangePassword = (e) => {
+  const handleChangePassword = async (e) => {
     e.preventDefault();
-    alert(`Password berhasil diubah dari ${oldPassword} ke ${newPassword}`);
-    
+
+    if (!userId) {
+      MySwal.fire({
+        title: "Gagal",
+        text: "Silakan login terlebih dahulu",
+        icon: "warning",
+      });
+      return;
+    }
+
+    if (newPassword.length < 6) {
+      MySwal.fire({
+        title: "Gagal",
+        text: "Password baru minimal 6 karakter",
+        icon: "warning",
+      });
+      return;
+    }
+
+    try {
+      await changePassword({
+        userId,
+        oldPassword,
+        newPassword,
+      });
+
+      MySwal.fire({
+        title: "Berhasil",
+        text: "Password berhasil diganti",
+        icon: "success",
+      });
+
+      setOldPassword("");
+      setNewPassword("");
+      setFormType("login");
+    } catch (err) {
+      MySwal.fire({
+        title: "Gagal",
+        text: err.message,
+        icon: "error",
+      });
+    }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("userId");
+    localStorage.removeItem("email");
+    setUserId(null);
+    setEmail("admin@gmail.com");
+    setFormType("login");
+    navigate("/login");
   };
 
   return (
@@ -59,6 +145,7 @@ function Login() {
           <h2 className="text-center mb-4 fw-bold">
             {formType === "login" ? "Silahkan Masuk" : "Ganti Password"}
           </h2>
+
           <form
             onSubmit={formType === "login" ? handleLogin : handleChangePassword}
           >
@@ -70,9 +157,7 @@ function Login() {
                     type="email"
                     className="form-control"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                    placeholder="you@example.com"
+                    readOnly
                   />
                 </div>
 
@@ -105,9 +190,7 @@ function Login() {
             {formType === "change" && (
               <>
                 <div className="mb-3">
-                  <label className="form-label fw-semibold">
-                    Password Lama
-                  </label>
+                  <label className="form-label fw-semibold">Password Lama</label>
                   <input
                     type={showOldPassword ? "text" : "password"}
                     className="form-control"
@@ -134,9 +217,7 @@ function Login() {
                 </div>
 
                 <div className="mb-3">
-                  <label className="form-label fw-semibold">
-                    Password Baru
-                  </label>
+                  <label className="form-label fw-semibold">Password Baru</label>
                   <input
                     type={showNewPassword ? "text" : "password"}
                     className="form-control"
@@ -187,6 +268,14 @@ function Login() {
               ? "Lupa password? Ganti di sini"
               : "Kembali ke Login"}
           </p>
+
+          {userId && (
+            <div className="text-center mt-2">
+              <button className="btn btn-link text-danger" onClick={handleLogout}>
+                Logout
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </>

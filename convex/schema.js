@@ -13,4 +13,8 @@ export default defineSchema({
     storageId: v.id("_storage"),
     uploadedAt: v.number(),
   }),
+  users: defineTable({
+    email: v.string(),
+    passwordHash: v.string(),
+  }).index("by_email", ["email"]),
 });
