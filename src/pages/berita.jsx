@@ -1,37 +1,74 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
+import {useQuery} from "convex/react";
+import {api} from "../../convex/_generated/api";
 
 function Berita() {
   const menuItems = [
-    { label: "Home", path: "/" },
-    { label: "Profile", path: "/profile" },
+    {label: "Home", path: "/"},
+    {label: "Profile", path: "/profile"},
     {
       label: "Lainnya",
       type: "dropdown",
       children: [
-        { label: "Infografis", path: "/infografis" },
-        { label: "Berita", path: "/berita" },
-        { label: "E-Lapor", path: "/eLapor" },
-        { label: "Galeri", path: "/galeri" },
-        { label: "Masuk Admin", path: "/login" },
+        {label: "Infografis", path: "/infografis"},
+        {label: "Berita", path: "/berita"},
+        {label: "E-Lapor", path: "/eLapor"},
+        {label: "Galeri", path: "/galeri"},
+        {label: "Masuk Admin", path: "/login"},
       ],
     },
   ];
 
+  const [loading, setLoading] = useState(true);
+  const beritaData = useQuery(api.berita.listBerita);
+
+  useEffect(() => {
+    if (beritaData !== undefined) {
+      setLoading(false); // Set loading to false once data is fetched
+    }
+  }, [beritaData]);
+
   return (
     <>
       <Navbar menuItems={menuItems} />
-      <div className="container py-5 mt-5">
-        <h1 className="text-center my-4">Berita Desa</h1>
-        <div className="row">
-          <div className="col-12">
-            <p>Halaman berita desa sedang dalam pengembangan.</p>
+      <div className='container py-5 mt-5'>
+        <h1 className='text-center my-4'>Berita Desa</h1>
+        {loading ? (
+          <div className='text-center py-5'>
+            <div className='spinner-border text-primary' role='status'>
+              <span className='visually-hidden'>Loading...</span>
+            </div>
+            <p className='mt-3'>Memuat data berita...</p>
           </div>
-        </div>
+        ) : (
+          <div className='row'>
+            {beritaData?.map((item) => (
+              <BeritaCard key={item._id} title={item.title} description={item.description} storageId={item.storageId} />
+            ))}
+          </div>
+        )}
       </div>
       <Footer />
     </>
+  );
+}
+
+// ini bekeng komponen baru nanti
+function BeritaCard({title, description, storageId}) {
+  const fileUrl = useQuery(api.berita.getFileUrl, {storageId});
+
+  return (
+    <div className='col-md-6 col-lg-4 mb-4'>
+      <div className='card shadow-sm h-100'>
+        {fileUrl && <img src={fileUrl} alt={title} className='card-img-top' style={{maxHeight: 200, objectFit: "cover"}} />}
+        <div className='card-body'>
+          <h5 className='card-title'>{title}</h5>
+          <p className='card-text'>{description}</p>
+        </div>
+      </div>
+    </div>
   );
 }
 
