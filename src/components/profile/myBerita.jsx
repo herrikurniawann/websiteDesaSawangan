@@ -41,17 +41,17 @@ function DetailBerita() {
   return (
     <>
       <Navbar menuItems={menuItems} />
-      <div className="container py-5 mt-5">
+      <div className="content container py-5">
         <h1 className="fw-bold mb-4">{beritaDetail.title}</h1>
         {fileUrl && (
           <img
             src={fileUrl}
             alt={beritaDetail.title}
             className="img-fluid mb-4"
-            style={{ maxHeight: "400px", objectFit: "cover", width: "100%" }}
+            style={{ maxHeight: "400px", objectFit: "cover", width: "100%", borderRadius: "20px" }}
           />
         )}
-        <p>{beritaDetail.description}</p>
+        <p className="fs-6">{beritaDetail.description}</p>
       </div>
       <Footer />
     </>

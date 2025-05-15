@@ -48,6 +48,12 @@ nav {
   background-color: #e2e8f0;
 }
 
+.dropdown-item:hover {
+  color: white;
+  background-color: #1a56db;
+  cursor: pointer;
+}
+
 /* Heading One */
 .headingOne {
   height: 100vh;
