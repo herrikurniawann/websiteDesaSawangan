@@ -11,6 +11,7 @@ import GaleriBeritaForm from "./components/admin/galeriForm";
 import ProfileForm from "./components/admin/profileForm";
 import Galeri from "./pages/galeri";
 import GantiPass from "./components/admin/gantiPass";
+import DetailBerita from "./components/profile/myBerita";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/infografis" element={<Infografis />} />
         <Route path="/galeri" element={<Galeri />} />
         <Route path="/berita" element={<Berita />} />
+        <Route path="/berita/:id" element={<DetailBerita />} />
         <Route path="/eLapor" element={<ELapor />} />
         <Route path="/login" element={<Login />} />
         <Route path="/data" element={<Dashboard />} />

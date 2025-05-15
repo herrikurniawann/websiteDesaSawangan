@@ -3,6 +3,7 @@ import Navbar from "../components/navbar";
 import Footer from "../components/footer";
 import { useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
+import { useNavigate } from "react-router-dom";
 
 function Berita() {
   const menuItems = [
@@ -51,6 +52,7 @@ function Berita() {
             {beritaData?.map((item) => (
               <BeritaCard
                 key={item._id}
+                id={item._id}
                 title={item.title}
                 description={item.description}
                 storageId={item.storageId}
@@ -65,12 +67,21 @@ function Berita() {
 }
 
 // ini bekeng komponen baru nanti
-function BeritaCard({ title, description, storageId }) {
+
+function BeritaCard({ title, description, storageId, id }) {
   const fileUrl = useQuery(api.berita.getFileUrl, { storageId });
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate(`/berita/${id}`);
+  };
 
   return (
     <div className="col-md-6 col-lg-4 mb-4 py-2">
-      <div className="card shadow-sm" style={{height: "24rem"}}>
+      <div
+        className="card shadow-sm"
+        style={{ height: "24rem", cursor: "pointer" }}
+        onClick={handleClick}
+      >
         {fileUrl && (
           <img
             src={fileUrl}

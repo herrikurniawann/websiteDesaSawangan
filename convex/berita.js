@@ -36,3 +36,10 @@ export const deleteBerita = mutation({
     await ctx.db.delete(id); // Deletes the item with the given ID
   },
 });
+
+export const getBeritaById = query({
+  args: { id: v.id("berita") },
+  handler: async (ctx, args) => {
+    return await ctx.db.get(args.id);
+  },
+});
