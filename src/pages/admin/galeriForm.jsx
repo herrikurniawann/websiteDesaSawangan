@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from "react";
-import Navbar from "../navbar";
-import Footer from "../footer";
+import Navbar from "@components/navbar";
+import Footer from "@components/footer";
 import {useMutation, useQuery} from "convex/react";
-import {api} from "../../../convex/_generated/api";
-import { useNavigate } from "react-router-dom";
+import {api} from "@convex/_generated/api";
+import {useNavigate} from "react-router-dom";
+import GaleriAdminCard from "@components/cards/GaleriAdminCard"; // Import the new GaleriAdminCard component
 
 function GaleriBeritaForm() {
   const navigate = useNavigate();
@@ -14,11 +15,11 @@ function GaleriBeritaForm() {
   };
 
   const menuItems = [
-    { label: "Data", path: "/data" },
-    { label: "Galeri", path: "/galeriForm" },
-    { label: "Profile", path: "/profileForm" },
-    { label: "gantiPW", path: "/gantiPW" },
-    { label: "Logout", type: "button", onClick: handleLogout },
+    {label: "Data", path: "/data"},
+    {label: "Galeri", path: "/galeriForm"},
+    {label: "Profile", path: "/profileForm"},
+    {label: "gantiPW", path: "/gantiPW"},
+    {label: "Logout", type: "button", onClick: handleLogout},
   ];
 
   // Loading state for Form 1 and Form 2
@@ -37,14 +38,14 @@ function GaleriBeritaForm() {
   const [form2Preview, setForm2Preview] = useState(null);
 
   // Convex hooks
-  const generateBeritaUploadUrl = useMutation(api.berita.generateUploadUrl);
+  const generateBeritaUploadUrl = useMutation(api.files.generateUploadUrl);
   const saveBerita = useMutation(api.berita.saveBerita);
-  const deleteBerita = useMutation(api.berita.deleteBerita); // Mutation to delete berita
+  const deleteBerita = useMutation(api.berita.deleteBerita);
   const listBerita = useQuery(api.berita.listBerita);
 
-  const generateGaleriUploadUrl = useMutation(api.galeri.generateUploadUrl);
+  const generateGaleriUploadUrl = useMutation(api.files.generateUploadUrl);
   const saveGaleri = useMutation(api.galeri.saveGaleri);
-  const deleteGaleri = useMutation(api.galeri.deleteGaleri); // Mutation to delete galeri
+  const deleteGaleri = useMutation(api.galeri.deleteGaleri);
   const listGaleri = useQuery(api.galeri.listGaleri);
 
   const handleForm1ImageChange = (e) => {
@@ -189,7 +190,7 @@ function GaleriBeritaForm() {
         <h3>Data Berita</h3>
         <div className='row'>
           {listBerita?.map((item) => (
-            <ImageCard
+            <GaleriAdminCard
               key={item._id}
               title={item.title}
               description={item.description}
@@ -203,31 +204,18 @@ function GaleriBeritaForm() {
         <h3 className='mt-4'>Data Galeri</h3>
         <div className='row'>
           {listGaleri?.map((item) => (
-            <ImageCard key={item._id} title={item.title} storageId={item.storageId} source='galeri' onDelete={() => handleDeleteGaleri(item._id)} />
+            <GaleriAdminCard
+              key={item._id}
+              title={item.title}
+              storageId={item.storageId}
+              source='galeri'
+              onDelete={() => handleDeleteGaleri(item._id)}
+            />
           ))}
         </div>
       </div>
       <Footer />
     </>
-  );
-}
-
-function ImageCard({title, description, storageId, source, onDelete}) {
-  const fileUrl = useQuery(source === "berita" ? api.berita.getFileUrl : api.galeri.getFileUrl, {storageId});
-
-  return (
-    <div className='col-md-6 col-lg-4 mb-4'>
-      <div className='card shadow-sm h-100'>
-        {fileUrl && <img src={fileUrl} alt='img' className='card-img-top' style={{maxHeight: 200, objectFit: "cover"}} />}
-        <div className='card-body'>
-          <h5 className='card-title'>{title}</h5>
-          {description && <p className='card-text text-muted'>{description}</p>}
-          <button className='btn btn-danger btn-sm' onClick={onDelete}>
-            Hapus
-          </button>
-        </div>
-      </div>
-    </div>
   );
 }
 

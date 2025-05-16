@@ -25,4 +25,14 @@ export default defineSchema({
     jenisKelamin: v.union(v.literal("L"), v.literal("P")),
     kepalaKeluarga: v.boolean(),
   }),
+  struktur: defineTable({
+    storageId: v.id("_storage"),
+    uploadedAt: v.number(),
+  }),
+  hukumTua: defineTable({
+    name: v.string(),
+    storageId: v.id("_storage"),
+    isPrevious: v.boolean(), // 👈 this replaces the need for hukumTuaTerdahulu table
+    uploadedAt: v.number(),
+  }),
 });

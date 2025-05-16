@@ -1,9 +1,9 @@
 import React, {useState} from "react";
-import Navbar from "../navbar";
-import Footer from "../footer";
+import Navbar from "@components/navbar";
+import Footer from "@components/footer";
 import {useMutation, useQuery} from "convex/react";
 import {useNavigate} from "react-router-dom";
-import {api} from "../../../convex/_generated/api";
+import {api} from "@convex/_generated/api";
 
 function Dashboard() {
   const [loading, setLoading] = useState(Array(6).fill(false));

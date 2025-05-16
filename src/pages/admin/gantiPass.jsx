@@ -1,10 +1,9 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
-import Navbar from "../navbar";
+import React, {useEffect, useState} from "react";
+import Navbar from "@components/navbar";
 import Swal from "sweetalert2";
-import { useAction } from "convex/react";
-import { api } from "../../../convex/_generated/api";
-import { useNavigate } from "react-router-dom";
+import {useAction} from "convex/react";
+import {api} from "@convex/_generated/api";
+import {useNavigate} from "react-router-dom";
 
 function GantiPass() {
   const [userId, setUserId] = useState(null);
@@ -23,11 +22,11 @@ function GantiPass() {
   };
 
   const menuItems = [
-    { label: "Data", path: "/data" },
-    { label: "Galeri", path: "/galeriForm" },
-    { label: "Profile", path: "/profileForm" },
-    { label: "gantiPW", path: "/gantiPW" },
-    { label: "Logout", type: "button", onClick: handleLogout },
+    {label: "Data", path: "/data"},
+    {label: "Galeri", path: "/galeriForm"},
+    {label: "Profile", path: "/profileForm"},
+    {label: "gantiPW", path: "/gantiPW"},
+    {label: "Logout", type: "button", onClick: handleLogout},
   ];
 
   useEffect(() => {
@@ -84,64 +83,58 @@ function GantiPass() {
   return (
     <>
       <Navbar menuItems={menuItems} />
-      <div className="vh-100 d-flex justify-content-center align-items-center bg-light">
-        <div
-          className="card-login shadow p-4 rounded-4 mx-auto"
-          style={{ maxWidth: "100%", width: "80%", height: "50%" }}
-        >
-          <h2 className="text-center mb-4 fw-bold">Ganti Password</h2>
+      <div className='vh-100 d-flex justify-content-center align-items-center bg-light'>
+        <div className='card-login shadow p-4 rounded-4 mx-auto' style={{maxWidth: "100%", width: "80%", height: "50%"}}>
+          <h2 className='text-center mb-4 fw-bold'>Ganti Password</h2>
           <form onSubmit={handleChangePassword}>
-            <div className="mb-3">
-              <label className="form-label fw-semibold">Password Lama</label>
+            <div className='mb-3'>
+              <label className='form-label fw-semibold'>Password Lama</label>
               <input
                 type={showOldPassword ? "text" : "password"}
-                className="form-control"
+                className='form-control'
                 value={oldPassword}
                 onChange={(e) => setOldPassword(e.target.value)}
                 required
-                placeholder="********"
+                placeholder='********'
               />
-              <div className="form-check mt-2">
+              <div className='form-check mt-2'>
                 <input
-                  type="checkbox"
-                  className="form-check-input"
-                  id="showOldPassword"
+                  type='checkbox'
+                  className='form-check-input'
+                  id='showOldPassword'
                   checked={showOldPassword}
                   onChange={() => setShowOldPassword(!showOldPassword)}
                 />
-                <label className="form-check-label" htmlFor="showOldPassword">
+                <label className='form-check-label' htmlFor='showOldPassword'>
                   Lihat Password Lama
                 </label>
               </div>
             </div>
 
-            <div className="mb-3">
-              <label className="form-label fw-semibold">Password Baru</label>
+            <div className='mb-3'>
+              <label className='form-label fw-semibold'>Password Baru</label>
               <input
                 type={showNewPassword ? "text" : "password"}
-                className="form-control"
+                className='form-control'
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
                 required
-                placeholder="********"
+                placeholder='********'
               />
-              <div className="form-check mt-2">
+              <div className='form-check mt-2'>
                 <input
-                  type="checkbox"
-                  className="form-check-input"
-                  id="showNewPassword"
+                  type='checkbox'
+                  className='form-check-input'
+                  id='showNewPassword'
                   checked={showNewPassword}
                   onChange={() => setShowNewPassword(!showNewPassword)}
                 />
-                <label className="form-check-label" htmlFor="showNewPassword">
+                <label className='form-check-label' htmlFor='showNewPassword'>
                   Lihat Password Baru
                 </label>
               </div>
             </div>
-            <button
-              type="submit"
-              className="btn-submit w-100 py-2 mt-3 fw-bold"
-            >
+            <button type='submit' className='btn-submit w-100 py-2 mt-3 fw-bold'>
               Simpan Password
             </button>
           </form>
