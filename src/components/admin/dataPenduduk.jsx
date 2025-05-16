@@ -16,11 +16,11 @@ function Dashboard() {
   };
 
   const menuItems = [
-    { label: "Data", path: "/data" },
-    { label: "Galeri", path: "/galeriForm" },
-    { label: "Profile", path: "/profileForm" },
-    { label: "gantiPW", path: "/gantiPW" },
-    { label: "Logout", type: "button", onClick: handleLogout },
+    {label: "Data", path: "/data"},
+    {label: "Galeri", path: "/galeriForm"},
+    {label: "Profile", path: "/profileForm"},
+    {label: "gantiPW", path: "/gantiPW"},
+    {label: "Logout", type: "button", onClick: handleLogout},
   ];
 
   const allResidents = useQuery(api.resident.getResidents) || [];
@@ -167,12 +167,12 @@ function Dashboard() {
     <>
       <Navbar menuItems={menuItems} />
       <div className='admin-content container py-5 overflow-x-hiden' style={{overflowX: "hidden"}}>
-        <h2 className='mb-4 text-center'>Input Data Kependudukan per Lorong</h2>
+        <h2 className='mb-4 text-center'>Input Data Kependudukan per Jaga</h2>
         <div className='row'>
           {Array.from({length: 6}).map((_, index) => (
             <div className='col-md-6 mb-4' key={index}>
               <div className='card h-100'>
-                <div className='card-header'>Lorong {index + 1}</div>
+                <div className='card-header'>Jaga {index + 1}</div>
                 <div className='card-body'>
                   <div className='mb-3'>
                     <label>NIK</label>
@@ -288,58 +288,54 @@ function Dashboard() {
           <div className='card-header'>Daftar Penduduk</div>
           <div className='card-body'>
             <div className='mb-3'>
-              <input
-                type='text'
-                className='form-control'
-                placeholder='Cari NIK, Nama, Jenis Kelamin, Pekerjaan, Kepala Keluarga, atau Lorong...'
-                value={filterText}
-                onChange={(e) => setFilterText(e.target.value)}
-              />
+              <input type='text' className='form-control' placeholder='Cari...' value={filterText} onChange={(e) => setFilterText(e.target.value)} />
             </div>
 
-            <table className='table table-striped'>
-              <thead>
-                <tr>
-                  <th>NIK</th>
-                  <th>Nama</th>
-                  <th>Jenis Kelamin</th>
-                  <th>Pekerjaan</th>
-                  <th>Kepala Keluarga</th>
-                  <th>Lorong</th>
-                  <th>Aksi</th>
-                </tr>
-              </thead>
-              <tbody>
-                {groupedByLorong
-                  .flat()
-                  .filter((p) => {
-                    const search = filterText.toLowerCase();
-                    return (
-                      p.nik?.toLowerCase().includes(search) ||
-                      p.nama?.toLowerCase().includes(search) ||
-                      (p.jenisKelamin === "L" ? "laki-laki" : "perempuan").includes(search) ||
-                      p.pekerjaan?.toLowerCase().includes(search) ||
-                      (p.kepalaKeluarga ? "ya" : "tidak").includes(search) ||
-                      String(p.lorong).includes(search)
-                    );
-                  })
-                  .map((p) => (
-                    <tr key={p._id}>
-                      <td>{p.nik}</td>
-                      <td>{p.nama}</td>
-                      <td>{p.jenisKelamin === "L" ? "Laki-laki" : "Perempuan"}</td>
-                      <td>{p.pekerjaan}</td>
-                      <td>{p.kepalaKeluarga ? "Ya" : "Tidak"}</td>
-                      <td>{p.lorong}</td>
-                      <td>
-                        <button className='btn btn-danger btn-sm' onClick={() => handleDelete(p._id)}>
-                          Hapus
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-              </tbody>
-            </table>
+            <div className='table-responsive'>
+              <table className='table table-striped'>
+                <thead>
+                  <tr>
+                    <th>NIK</th>
+                    <th>Nama</th>
+                    <th>Jenis Kelamin</th>
+                    <th>Pekerjaan</th>
+                    <th>Kepala Keluarga</th>
+                    <th>Jaga</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {groupedByLorong
+                    .flat()
+                    .filter((p) => {
+                      const search = filterText.toLowerCase();
+                      return (
+                        p.nik?.toLowerCase().includes(search) ||
+                        p.nama?.toLowerCase().includes(search) ||
+                        (p.jenisKelamin === "L" ? "laki-laki" : "perempuan").includes(search) ||
+                        p.pekerjaan?.toLowerCase().includes(search) ||
+                        (p.kepalaKeluarga ? "ya" : "tidak").includes(search) ||
+                        String(p.lorong).includes(search)
+                      );
+                    })
+                    .map((p) => (
+                      <tr key={p._id}>
+                        <td>{p.nik}</td>
+                        <td>{p.nama}</td>
+                        <td>{p.jenisKelamin === "L" ? "Laki-laki" : "Perempuan"}</td>
+                        <td>{p.pekerjaan}</td>
+                        <td>{p.kepalaKeluarga ? "Ya" : "Tidak"}</td>
+                        <td>{p.lorong}</td>
+                        <td>
+                          <button className='btn btn-danger btn-sm' onClick={() => handleDelete(p._id)}>
+                            Hapus
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
