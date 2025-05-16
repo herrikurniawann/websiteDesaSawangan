@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from "react";
-import Navbar from "../components/navbar";
-import Footer from "../components/footer";
+import Navbar from "@components/navbar";
+import Footer from "@components/footer";
 import {useQuery} from "convex/react";
-import {api} from "../../convex/_generated/api";
+import {api} from "@convex/_generated/api";
+import GaleriCard from "@components/cards/galeriCard";
 
 function Galeri() {
   const menuItems = [
@@ -54,24 +55,13 @@ function Galeri() {
         ) : (
           <div className='row'>
             {galleryData?.map((item) => (
-              <ImageCard key={item._id} storageId={item.storageId} source='galeri' />
+              <GaleriCard key={item._id} storageId={item.storageId} />
             ))}
           </div>
         )}
       </div>
       <Footer />
     </>
-  );
-}
-
-// ini bekeng komponen baru nanti
-function ImageCard({storageId, source}) {
-  const fileUrl = useQuery(api.galeri.getFileUrl, {storageId});
-
-  return (
-    <div className='col-md-6 col-lg-4 mb-4'>
-      {fileUrl && <img src={fileUrl} alt='Gallery Image' className='img-fluid w-100' style={{maxHeight: 300, objectFit: "cover"}} />}
-    </div>
   );
 }
 
