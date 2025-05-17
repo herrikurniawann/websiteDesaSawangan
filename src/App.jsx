@@ -9,6 +9,7 @@ import Login from "./pages/login";
 import Dashboard from "./pages/admin/dataPenduduk";
 import GaleriBeritaForm from "./pages/admin/galeriForm";
 import ProfileForm from "./pages/admin/profileForm";
+import HukumTuaForm from "./pages/admin/hukumTuaForm";
 import Galeri from "./pages/galeri";
 import GantiPass from "./pages/admin/gantiPass";
 import DetailBerita from "./components/profile/myBerita";
@@ -28,6 +29,7 @@ function App() {
         <Route path='/data' element={<Dashboard />} />
         <Route path='/galeriForm' element={<GaleriBeritaForm />} />
         <Route path='/profileForm' element={<ProfileForm />} />
+        <Route path='/hukumTuaForm' element={<HukumTuaForm />} />
         <Route path='/gantiPW' element={<GantiPass />} />
       </Routes>
     </Router>

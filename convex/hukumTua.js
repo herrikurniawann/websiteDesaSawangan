@@ -6,15 +6,27 @@ export const saveHukumTua = mutation({
   args: {
     name: v.string(),
     storageId: v.id("_storage"),
-    isPrevious: v.boolean(), // true = terdahulu
   },
   handler: async (ctx, args) => {
-    await ctx.db.insert("hukumTua", {
-      name: args.name,
-      storageId: args.storageId,
-      isPrevious: args.isPrevious,
-      uploadedAt: Date.now(),
-    });
+    const existing = await ctx.db.query("hukumTua").first(); // Check if a record already exists
+    const uploadedAt = Date.now(); // Use JavaScript timestamp
+
+    if (existing) {
+      // Delete the old storage file and update the existing record
+      await ctx.storage.delete(existing.storageId);
+      await ctx.db.patch(existing._id, {
+        name: args.name,
+        storageId: args.storageId,
+        uploadedAt,
+      });
+    } else {
+      // Insert a new record if none exists
+      await ctx.db.insert("hukumTua", {
+        name: args.name,
+        storageId: args.storageId,
+        uploadedAt,
+      });
+    }
   },
 });
 

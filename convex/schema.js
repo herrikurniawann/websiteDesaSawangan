@@ -27,12 +27,11 @@ export default defineSchema({
   }),
   struktur: defineTable({
     storageId: v.id("_storage"),
-    uploadedAt: v.float64(),
+    uploadedAt: v.optional(v.float64()),
   }),
   hukumTua: defineTable({
     name: v.string(),
     storageId: v.id("_storage"),
-    isPrevious: v.boolean(),
-    uploadedAt: v.number(),
+    uploadedAt: v.optional(v.float64()),
   }),
 });

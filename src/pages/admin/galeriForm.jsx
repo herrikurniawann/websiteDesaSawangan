@@ -18,6 +18,7 @@ function GaleriBeritaForm() {
     {label: "Data", path: "/data"},
     {label: "Galeri", path: "/galeriForm"},
     {label: "Profile", path: "/profileForm"},
+    {label: "Hukum Tua", path: "/hukumTuaForm"},
     {label: "Ganti Password", path: "/gantiPW"},
     {label: "Logout", type: "button", onClick: handleLogout},
   ];

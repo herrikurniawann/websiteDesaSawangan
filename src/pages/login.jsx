@@ -74,7 +74,7 @@ function Login() {
   return (
     <>
       <Navbar menuItems={menuItems} />
-      <div className="vh-100 d-flex justify-content-center align-items-center bg-light">
+      <div className="content py-5 d-flex justify-content-center align-items-center bg-light">
         <div
           className="card-login shadow p-4 rounded-4 mx-auto"
           style={{ maxWidth: "100%", width: "80%", height: "50%" }}
