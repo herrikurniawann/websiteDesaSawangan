@@ -4,7 +4,7 @@ import Footer from "@components/footer";
 import {useMutation, useQuery} from "convex/react";
 import {api} from "@convex/_generated/api";
 import {useNavigate} from "react-router-dom";
-import GaleriAdminCard from "@components/cards/GaleriAdminCard"; // Import the new GaleriAdminCard component
+import GaleriAdminCard from "@components/cards/galeriAdminCard";
 
 function GaleriBeritaForm() {
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ function GaleriBeritaForm() {
     {label: "Data", path: "/data"},
     {label: "Galeri", path: "/galeriForm"},
     {label: "Profile", path: "/profileForm"},
-    {label: "gantiPW", path: "/gantiPW"},
+    {label: "Ganti Password", path: "/gantiPW"},
     {label: "Logout", type: "button", onClick: handleLogout},
   ];
 

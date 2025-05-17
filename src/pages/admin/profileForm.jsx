@@ -21,7 +21,7 @@ function ProfileForm() {
     {label: "Ganti Password", path: "/gantiPW"},
     {label: "Logout", type: "button", onClick: handleLogout},
   ];
-
+  
   // Convex hooks
   const generateUploadUrl = useMutation(api.files.generateUploadUrl);
   const saveStruktur = useMutation(api.struktur.saveStruktur);

@@ -25,7 +25,7 @@ function GantiPass() {
     {label: "Data", path: "/data"},
     {label: "Galeri", path: "/galeriForm"},
     {label: "Profile", path: "/profileForm"},
-    {label: "gantiPW", path: "/gantiPW"},
+    {label: "Ganti Password", path: "/gantiPW"},
     {label: "Logout", type: "button", onClick: handleLogout},
   ];
 
