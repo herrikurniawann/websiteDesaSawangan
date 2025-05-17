@@ -27,12 +27,12 @@ export default defineSchema({
   }),
   struktur: defineTable({
     storageId: v.id("_storage"),
-    uploadedAt: v.number(),
+    uploadedAt: v.float64(),
   }),
   hukumTua: defineTable({
     name: v.string(),
     storageId: v.id("_storage"),
-    isPrevious: v.boolean(), // 👈 this replaces the need for hukumTuaTerdahulu table
+    isPrevious: v.boolean(),
     uploadedAt: v.number(),
   }),
 });

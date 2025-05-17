@@ -7,10 +7,21 @@ export const saveStruktur = mutation({
     storageId: v.id("_storage"),
   },
   handler: async (ctx, args) => {
-    await ctx.db.insert("struktur", {
-      storageId: args.storageId,
-      uploadedAt: Date.now(),
-    });
+    const existing = await ctx.db.query("struktur").first();
+    const uploadedAt = Date.now(); // pakai timestamp JS
+
+    if (existing) {
+      await ctx.storage.delete(existing.storageId);
+      await ctx.db.patch(existing._id, {
+        storageId: args.storageId,
+        uploadedAt,
+      });
+    } else {
+      await ctx.db.insert("struktur", {
+        storageId: args.storageId,
+        uploadedAt,
+      });
+    }
   },
 });
 

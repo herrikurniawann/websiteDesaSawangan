@@ -30,6 +30,7 @@ function ProfileForm() {
 
   const [strukturImage, setStrukturImage] = useState(null);
   const [strukturPreview, setStrukturPreview] = useState(null);
+  const [isUploading, setIsUploading] = useState(false); // State to track upload progress
 
   const handleImageChange = (setter, previewSetter) => (e) => {
     const file = e.target.files[0];
@@ -60,12 +61,20 @@ function ProfileForm() {
     e.preventDefault();
     if (!strukturImage) return;
 
-    const storageId = await uploadFileAndGetStorageId(strukturImage);
-    if (storageId) {
-      await saveStruktur({storageId});
-      alert("Struktur Organisasi berhasil diunggah!");
-      setStrukturImage(null);
-      setStrukturPreview(null);
+    setIsUploading(true); // Set uploading state to true
+    try {
+      const storageId = await uploadFileAndGetStorageId(strukturImage);
+      if (storageId) {
+        await saveStruktur({storageId});
+        alert(struktur ? "Struktur Organisasi berhasil diperbarui!" : "Struktur Organisasi berhasil diunggah!");
+        setStrukturImage(null);
+        setStrukturPreview(null);
+      }
+    } catch (error) {
+      console.error("Error uploading Struktur Organisasi:", error);
+      alert("Terjadi kesalahan saat mengunggah Struktur Organisasi.");
+    } finally {
+      setIsUploading(false); // Reset uploading state
     }
   };
 
@@ -77,7 +86,7 @@ function ProfileForm() {
 
         {/* Struktur Upload */}
         <div className='mb-5'>
-          <h2>Upload Struktur Organisasi</h2>
+          <h2>{struktur ? "Ganti Struktur Organisasi" : "Upload Struktur Organisasi"}</h2>
           <form onSubmit={handleSubmitStruktur} className='border p-3 rounded bg-light'>
             <div className='mb-3'>
               <label className='form-label'>Gambar Struktur Organisasi</label>
@@ -90,21 +99,23 @@ function ProfileForm() {
               />
               {strukturPreview && <img src={strukturPreview} alt='Preview Struktur' className='img-thumbnail mt-3' style={{maxHeight: 200}} />}
             </div>
-            <button type='submit' className='btn btn-primary'>
-              Upload
+            <button type='submit' className={`btn ${struktur ? "btn-warning" : "btn-primary"}`} disabled={isUploading}>
+              {isUploading ? "Proses..." : struktur ? "Ganti Struktur" : "Upload"}
             </button>
           </form>
         </div>
 
         <div className='mb-5'>
           <h2>Struktur Organisasi Saat Ini</h2>
-          {strukturUrl && (
+          {strukturUrl ? (
             <img
               src={strukturUrl}
               alt='Struktur Organisasi'
               className='img-fluid img-thumbnail w-100'
               style={{maxHeight: 400, objectFit: "contain"}}
             />
+          ) : (
+            <p className='text-muted'>Belum ada struktur yang diunggah.</p>
           )}
         </div>
       </div>
