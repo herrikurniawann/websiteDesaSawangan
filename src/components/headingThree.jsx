@@ -1,6 +1,15 @@
 import React from "react";
+import { useMutation, useQuery } from "convex/react";
+import { api } from "@convex/_generated/api";
 
 function HeadingThree() {
+  const hukumTuaList = useQuery(api.hukumTua.getHukumTua); // gunakan yang sudah ada
+  const hukumTua = hukumTuaList?.[0]; // ambil hanya yang terbaru (seperti struktur)
+  const hukumTuaUrl = useQuery(
+    api.files.getFileUrl,
+    hukumTua ? { storageId: hukumTua.storageId } : "skip"
+  );
+
   return (
     <div className="HeadingThree" id="scrollspyHeading3">
       <div className="container">
@@ -8,12 +17,18 @@ function HeadingThree() {
           <div className="content-HeadingThree d-flex flex-column flex-md-row align-items-center py-5">
             <div className="d-flex justify-content-center mb-4 mb-md-0">
               {/* {Endpoint Foto Hukum Tua} */}
-              <img src="assets/logoMinahasa.png" alt="kepaladesa" />
+              <img
+                src={hukumTuaUrl}
+                alt="kepaladesa"
+                style={{
+                  borderRadius: "20px",
+                }}
+              />
             </div>
             <div className="pe-md-4 text-center text-md-start">
               <h1 className="fw-bold">Hukum Tua</h1>
               {/* {EndPoint Nama Hukum Tua} */}
-              <h2>ELVIS D. MALINGKONOR</h2>
+              <h2>{hukumTua.name}</h2>
               <p className="p-1 overflow-auto" style={{ maxHeight: "200px" }}>
                 Shalom. Assalamualaikum, Wr,Wb. Om Swastiastu, Namo Buddhya.
                 Salam Kebajikan. Segala puji dan syukur kita panjatkan kepada
