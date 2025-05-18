@@ -3,6 +3,18 @@ import Navbar from "../components/navbar";
 import Footer from "../components/footer";
 import { useQuery } from "convex/react";
 import { api } from "@convex/_generated/api";
+import { Chart } from "react-chartjs-2";
+import {
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Chart as ChartJS,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 function Infografis() {
   const menuItems = [
@@ -30,6 +42,32 @@ function Infografis() {
 
   const occupationStats = residents.reduce((acc, r) => {
     acc[r.pekerjaan] = (acc[r.pekerjaan] || 0) + 1;
+    return acc;
+  }, {});
+
+  const ageGroups = [
+    "0-4", "5-9", "10-14", "15-19", "20-24", "25-29",
+    "30-34", "35-39", "40-44", "45-49", "50-54",
+    "55-59", "60-64", "65-69", "70-74", "75-79", "80-84", "85+",
+  ];
+
+  const ageGroupStats = ageGroups.map((group) => {
+    const [start, end] = group.includes("+") ? [85, Infinity] : group.split("-").map(Number);
+    const males = residents.filter(
+      (r) => r.jenisKelamin === "L" && r.umur >= start && r.umur <= (end || r.umur)
+    ).length;
+    const females = residents.filter(
+      (r) => r.jenisKelamin === "P" && r.umur >= start && r.umur <= (end || r.umur)
+    ).length;
+    return { group, males, females };
+  });
+
+  const religions = [
+    "Islam", "Kristen", "Katolik", "Hindu", "Buddha", "Konghucu", "Kepercayaan lainnya",
+  ];
+
+  const religionStats = religions.reduce((acc, religion) => {
+    acc[religion] = residents.filter((r) => r.agama === religion).length;
     return acc;
   }, {});
 
@@ -74,6 +112,62 @@ function Infografis() {
               ))}
             </ul>
           )}
+        </div>
+
+        {/* Kelompok Umur */}
+        <div className="mt-5">
+          <h4 className="text-center mb-4">Berdasarkan Kelompok Umur</h4>
+          <Chart
+            type="bar"
+            data={{
+              labels: ageGroups,
+              datasets: [
+                {
+                  label: "Laki-laki",
+                  data: ageGroupStats.map((g) => -g.males),
+                  backgroundColor: "#007bff",
+                },
+                {
+                  label: "Perempuan",
+                  data: ageGroupStats.map((g) => g.females),
+                  backgroundColor: "#e83e8c",
+                },
+              ],
+            }}
+            options={{
+              indexAxis: "y",
+              scales: {
+                x: {
+                  stacked: true,
+                  ticks: {
+                    callback: function (value) {
+                      return Math.abs(value);
+                    },
+                  },
+                },
+                y: {
+                  stacked: true,
+                },
+              },
+            }}
+          />
+        </div>
+
+        {/* Berdasarkan Agama */}
+        <div className="mt-5 mb-5">
+          <h4 className="text-center mb-4">Berdasarkan Agama</h4>
+          <div className="row g-4 justify-content-center">
+            {Object.entries(religionStats).map(([religion, count]) => (
+              <div key={religion} className="col-6 col-md-3 col-lg-2">
+                <div className="card text-center shadow h-100">
+                  <div className="card-body">
+                    <h6 className="fw-semibold mb-1">{religion}</h6>
+                    <h4 className="fw-bold text-primary">{count}</h4>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
