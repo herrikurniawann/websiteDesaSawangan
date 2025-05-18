@@ -337,6 +337,15 @@ iframe {
   margin-top: 6rem;
 }
 
+/* infografis */
+.stat-card {
+  transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+}
+
 /* Responsive Styles */
 @media (max-width: 1200px) {
   .content-HeadingTwo,

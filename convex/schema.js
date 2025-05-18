@@ -23,6 +23,8 @@ export default defineSchema({
     nik: v.string(),
     pekerjaan: v.string(),
     jenisKelamin: v.union(v.literal("L"), v.literal("P")),
+    agama: v.string(),
+    umur: v.number(),
     kepalaKeluarga: v.boolean(),
   }),
   struktur: defineTable({

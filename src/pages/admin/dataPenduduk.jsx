@@ -1,9 +1,9 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Navbar from "@components/navbar";
 import Footer from "@components/footer";
-import {useMutation, useQuery} from "convex/react";
-import {useNavigate} from "react-router-dom";
-import {api} from "@convex/_generated/api";
+import { useMutation, useQuery } from "convex/react";
+import { useNavigate } from "react-router-dom";
+import { api } from "@convex/_generated/api";
 
 function Dashboard() {
   const [loading, setLoading] = useState(Array(6).fill(false));
@@ -16,12 +16,12 @@ function Dashboard() {
   };
 
   const menuItems = [
-    {label: "Data", path: "/data"},
-    {label: "Galeri", path: "/galeriForm"},
-    {label: "Profile", path: "/profileForm"},
-    {label: "Hukum Tua", path: "/hukumTuaForm"},
-    {label: "Ganti Password", path: "/gantiPW"},
-    {label: "Logout", type: "button", onClick: handleLogout},
+    { label: "Data", path: "/data" },
+    { label: "Galeri", path: "/galeriForm" },
+    { label: "Profile", path: "/profileForm" },
+    { label: "Hukum Tua", path: "/hukumTuaForm" },
+    { label: "Ganti Password", path: "/gantiPW" },
+    { label: "Logout", type: "button", onClick: handleLogout },
   ];
 
   const allResidents = useQuery(api.resident.getResidents) || [];
@@ -40,13 +40,15 @@ function Dashboard() {
       nik: "",
       pekerjaan: "",
       jenisKelamin: "L",
+      agama: "",
+      umur: "",
       kepalaKeluarga: "false",
     })
   );
 
   const handleFormChange = (index, field, value) => {
     const updated = [...formData];
-    updated[index] = {...updated[index], [field]: value};
+    updated[index] = { ...updated[index], [field]: value };
     setFormData(updated);
   };
 
@@ -62,13 +64,16 @@ function Dashboard() {
       nama: "",
       nik: "",
       jenisKelamin: "L",
+      agama: "",
+      umur: "",
       pekerjaan: "",
     });
     setAnggotaKeluarga(updated);
   };
 
   const simpanData = async (index) => {
-    const {nama, nik, pekerjaan, jenisKelamin, kepalaKeluarga} = formData[index];
+    const { nama, nik, pekerjaan, jenisKelamin, agama, umur, kepalaKeluarga } =
+      formData[index];
     if (!nama || !pekerjaan || !nik) {
       alert("Mohon lengkapi data kepala keluarga.");
       return;
@@ -86,6 +91,8 @@ function Dashboard() {
         idNumber: nik,
         occupation: pekerjaan,
         gender: jenisKelamin,
+        religion: agama,
+        age: parseFloat(umur),
         headOfFamily: kepalaKeluarga === "true",
       },
     ];
@@ -98,13 +105,15 @@ function Dashboard() {
             idNumber: a.nik,
             occupation: a.pekerjaan,
             gender: a.jenisKelamin,
+            religion: a.agama,
+            age: parseFloat(umur),
             headOfFamily: false,
           });
         }
       });
     }
 
-    await saveResident({lorong: index + 1, data: newData});
+    await saveResident({ lorong: index + 1, data: newData });
 
     const newForm = [...formData];
     newForm[index] = {
@@ -112,6 +121,8 @@ function Dashboard() {
       nik: "",
       pekerjaan: "",
       jenisKelamin: "L",
+      agama: "L",
+      umur: "",
       kepalaKeluarga: "false",
     };
     setFormData(newForm);
@@ -146,13 +157,13 @@ function Dashboard() {
       if (p.gender === "P") perempuan++;
     });
 
-    return {total, kk, laki, perempuan};
+    return { total, kk, laki, perempuan };
   };
 
   const handleDelete = async (id) => {
     if (window.confirm("Apakah Anda yakin ingin menghapus data ini?")) {
       try {
-        await deleteResident({id}); // Call the delete mutation
+        await deleteResident({ id }); // Call the delete mutation
         alert("Data berhasil dihapus!");
         // Tidak perlu invalidate manual, karena useQuery akan update otomatis
       } catch (error) {
@@ -167,98 +178,212 @@ function Dashboard() {
   return (
     <>
       <Navbar menuItems={menuItems} />
-      <div className='admin-content container py-5 overflow-x-hiden' style={{overflowX: "hidden"}}>
-        <h2 className='mb-4 text-center'>Input Data Kependudukan per Jaga</h2>
-        <div className='row'>
-          {Array.from({length: 6}).map((_, index) => (
-            <div className='col-md-6 mb-4' key={index}>
-              <div className='card h-100'>
-                <div className='card-header'>Jaga {index + 1}</div>
-                <div className='card-body'>
-                  <div className='mb-3'>
+      <div
+        className="admin-content container py-5 overflow-x-hiden"
+        style={{ overflowX: "hidden" }}
+      >
+        <h2 className="mb-4 text-center">Input Data Kependudukan per Jaga</h2>
+        <div className="row">
+          {Array.from({ length: 6 }).map((_, index) => (
+            <div className="col-md-6 mb-4" key={index}>
+              <div className="card h-100">
+                <div className="card-header">Jaga {index + 1}</div>
+                <div className="card-body">
+                  <div className="mb-3">
                     <label>NIK</label>
-                    <input className='form-control' value={formData[index].nik} onChange={(e) => handleFormChange(index, "nik", e.target.value)} />
-                  </div>
-                  <div className='mb-3'>
-                    <label>Nama</label>
-                    <input className='form-control' value={formData[index].nama} onChange={(e) => handleFormChange(index, "nama", e.target.value)} />
-                  </div>
-                  <div className='mb-3'>
-                    <label>Jenis Kelamin</label>
-                    <select
-                      className='form-select'
-                      value={formData[index].jenisKelamin}
-                      onChange={(e) => handleFormChange(index, "jenisKelamin", e.target.value)}>
-                      <option value='L'>Laki-laki</option>
-                      <option value='P'>Perempuan</option>
-                    </select>
-                  </div>
-                  <div className='mb-3'>
-                    <label>Pekerjaan</label>
                     <input
-                      className='form-control'
-                      value={formData[index].pekerjaan}
-                      onChange={(e) => handleFormChange(index, "pekerjaan", e.target.value)}
+                      className="form-control"
+                      value={formData[index].nik}
+                      onChange={(e) =>
+                        handleFormChange(index, "nik", e.target.value)
+                      }
                     />
                   </div>
-                  <div className='mb-3'>
+                  <div className="mb-3">
+                    <label>Nama</label>
+                    <input
+                      className="form-control"
+                      value={formData[index].nama}
+                      onChange={(e) =>
+                        handleFormChange(index, "nama", e.target.value)
+                      }
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <label>Jenis Kelamin</label>
+                    <select
+                      className="form-select"
+                      value={formData[index].jenisKelamin}
+                      onChange={(e) =>
+                        handleFormChange(index, "jenisKelamin", e.target.value)
+                      }
+                    >
+                      <option value="L">Laki-laki</option>
+                      <option value="P">Perempuan</option>
+                    </select>
+                  </div>
+                  <div className="mb-3">
+                    <label>Agama</label>
+                    <input
+                      className="form-control"
+                      value={formData[index].agama}
+                      onChange={(e) =>
+                        handleFormChange(index, "agama", e.target.value)
+                      }
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <label>Umur</label>
+                    <input
+                      className="form-control"
+                      value={formData[index].umur}
+                      onChange={(e) =>
+                        handleFormChange(index, "umur", e.target.value)
+                      }
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <label>Pekerjaan</label>
+                    <input
+                      className="form-control"
+                      value={formData[index].pekerjaan}
+                      onChange={(e) =>
+                        handleFormChange(index, "pekerjaan", e.target.value)
+                      }
+                    />
+                  </div>
+                  <div className="mb-3">
                     <label>Apakah Kepala Keluarga?</label>
                     <select
-                      className='form-select'
+                      className="form-select"
                       value={formData[index].kepalaKeluarga}
-                      onChange={(e) => handleFormChange(index, "kepalaKeluarga", e.target.value)}>
-                      <option value='true'>Ya</option>
-                      <option value='false'>Bukan</option>
+                      onChange={(e) =>
+                        handleFormChange(
+                          index,
+                          "kepalaKeluarga",
+                          e.target.value
+                        )
+                      }
+                    >
+                      <option value="true">Ya</option>
+                      <option value="false">Bukan</option>
                     </select>
                   </div>
 
                   {formData[index].kepalaKeluarga === "true" && (
-                    <div className='bg-light p-3 rounded mb-3'>
+                    <div className="bg-light p-3 rounded mb-3">
                       <h5>Anggota Keluarga</h5>
                       {anggotaKeluarga[index].map((a, i) => (
-                        <div className='row mb-2' key={i}>
-                          <div className='col-md-3'>
+                        <div className="row mb-2" key={i}>
+                          <div className="col-md-3">
                             <input
-                              className='form-control'
-                              placeholder='NIK'
+                              className="form-control"
+                              placeholder="NIK"
                               value={a.nik}
-                              onChange={(e) => handleAnggotaChange(index, i, "nik", e.target.value)}
+                              onChange={(e) =>
+                                handleAnggotaChange(
+                                  index,
+                                  i,
+                                  "nik",
+                                  e.target.value
+                                )
+                              }
                             />
                           </div>
-                          <div className='col-md-3'>
+                          <div className="col-md-3">
                             <input
-                              className='form-control'
-                              placeholder='Nama'
+                              className="form-control"
+                              placeholder="Nama"
                               value={a.nama}
-                              onChange={(e) => handleAnggotaChange(index, i, "nama", e.target.value)}
+                              onChange={(e) =>
+                                handleAnggotaChange(
+                                  index,
+                                  i,
+                                  "nama",
+                                  e.target.value
+                                )
+                              }
                             />
                           </div>
-                          <div className='col-md-3'>
+                          <div className="col-md-3">
                             <select
-                              className='form-select'
+                              className="form-select"
                               value={a.jenisKelamin}
-                              onChange={(e) => handleAnggotaChange(index, i, "jenisKelamin", e.target.value)}>
-                              <option value='L'>Laki-laki</option>
-                              <option value='P'>Perempuan</option>
+                              onChange={(e) =>
+                                handleAnggotaChange(
+                                  index,
+                                  i,
+                                  "jenisKelamin",
+                                  e.target.value
+                                )
+                              }
+                            >
+                              <option value="L">Laki-laki</option>
+                              <option value="P">Perempuan</option>
                             </select>
                           </div>
-                          <div className='col-md-3'>
+                          <div className="col-md-3">
                             <input
-                              className='form-control'
-                              placeholder='Pekerjaan'
+                              className="form-control"
+                              placeholder="Agama"
+                              value={a.agama}
+                              onChange={(e) =>
+                                handleAnggotaChange(
+                                  index,
+                                  i,
+                                  "agama",
+                                  e.target.value
+                                )
+                              }
+                            />
+                          </div>
+                          <div className="col-md-3">
+                            <input
+                              className="form-control"
+                              placeholder="Umur"
+                              value={a.umur}
+                              onChange={(e) =>
+                                handleAnggotaChange(
+                                  index,
+                                  i,
+                                  "umur",
+                                  e.target.value
+                                )
+                              }
+                            />
+                          </div>
+
+                          <div className="col-md-3">
+                            <input
+                              className="form-control"
+                              placeholder="Pekerjaan"
                               value={a.pekerjaan}
-                              onChange={(e) => handleAnggotaChange(index, i, "pekerjaan", e.target.value)}
+                              onChange={(e) =>
+                                handleAnggotaChange(
+                                  index,
+                                  i,
+                                  "pekerjaan",
+                                  e.target.value
+                                )
+                              }
                             />
                           </div>
                         </div>
                       ))}
-                      <button className='btn btn-secondary btn-sm' onClick={() => tambahAnggota(index)}>
+                      <button
+                        className="btn btn-secondary btn-sm"
+                        onClick={() => tambahAnggota(index)}
+                      >
                         + Tambah Anggota
                       </button>
                     </div>
                   )}
 
-                  <button className='btn btn-primary' onClick={() => simpanData(index)} disabled={loading[index]}>
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => simpanData(index)}
+                    disabled={loading[index]}
+                  >
                     {loading[index] ? "Proses..." : "Simpan Data"}
                   </button>
                 </div>
@@ -267,9 +392,9 @@ function Dashboard() {
           ))}
         </div>
 
-        <div className='card'>
-          <div className='card-header'>Statistik</div>
-          <div className='card-body'>
+        <div className="card">
+          <div className="card-header">Statistik</div>
+          <div className="card-body">
             <p>
               <strong>Total Penduduk:</strong> {stats.total}
             </p>
@@ -285,20 +410,28 @@ function Dashboard() {
           </div>
         </div>
 
-        <div className='card mt-4'>
-          <div className='card-header'>Daftar Penduduk</div>
-          <div className='card-body'>
-            <div className='mb-3'>
-              <input type='text' className='form-control' placeholder='Cari...' value={filterText} onChange={(e) => setFilterText(e.target.value)} />
+        <div className="card mt-4">
+          <div className="card-header">Daftar Penduduk</div>
+          <div className="card-body">
+            <div className="mb-3">
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Cari..."
+                value={filterText}
+                onChange={(e) => setFilterText(e.target.value)}
+              />
             </div>
 
-            <div className='table-responsive'>
-              <table className='table table-striped'>
+            <div className="table-responsive">
+              <table className="table table-striped">
                 <thead>
                   <tr>
                     <th>NIK</th>
                     <th>Nama</th>
                     <th>Jenis Kelamin</th>
+                    <th>Agama</th>
+                    <th>Umur</th>
                     <th>Pekerjaan</th>
                     <th>Kepala Keluarga</th>
                     <th>Jaga</th>
@@ -313,7 +446,10 @@ function Dashboard() {
                       return (
                         p.nik?.toLowerCase().includes(search) ||
                         p.nama?.toLowerCase().includes(search) ||
-                        (p.jenisKelamin === "L" ? "laki-laki" : "perempuan").includes(search) ||
+                        (p.jenisKelamin === "L"
+                          ? "laki-laki"
+                          : "perempuan"
+                        ).includes(search) ||
                         p.pekerjaan?.toLowerCase().includes(search) ||
                         (p.kepalaKeluarga ? "ya" : "tidak").includes(search) ||
                         String(p.lorong).includes(search)
@@ -323,12 +459,19 @@ function Dashboard() {
                       <tr key={p._id}>
                         <td>{p.nik}</td>
                         <td>{p.nama}</td>
-                        <td>{p.jenisKelamin === "L" ? "Laki-laki" : "Perempuan"}</td>
+                        <td>
+                          {p.jenisKelamin === "L" ? "Laki-laki" : "Perempuan"}
+                        </td>
+                        <td>{p.agama}</td>
+                        <td>{p.umur}</td>
                         <td>{p.pekerjaan}</td>
                         <td>{p.kepalaKeluarga ? "Ya" : "Tidak"}</td>
                         <td>{p.lorong}</td>
                         <td>
-                          <button className='btn btn-danger btn-sm' onClick={() => handleDelete(p._id)}>
+                          <button
+                            className="btn btn-danger btn-sm"
+                            onClick={() => handleDelete(p._id)}
+                          >
                             Hapus
                           </button>
                         </td>

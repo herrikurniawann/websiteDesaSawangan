@@ -10,6 +10,8 @@ export const saveResident = mutation({
         idNumber: v.string(),
         occupation: v.string(),
         gender: v.union(v.literal("L"), v.literal("P")),
+        religion: v.string(),
+        age: v.number(),
         headOfFamily: v.boolean(),
       })
     ),
@@ -22,6 +24,8 @@ export const saveResident = mutation({
         nik: resident.idNumber,
         pekerjaan: resident.occupation,
         jenisKelamin: resident.gender,
+        agama: resident.religion,
+        umur: resident.age,
         kepalaKeluarga: resident.headOfFamily,
       });
     }
