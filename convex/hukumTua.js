@@ -46,3 +46,33 @@ export const getHukumTua = query({
     return await ctx.db.query("hukumTua").order("desc").collect();
   },
 });
+
+//  =======
+
+export const savePreviousHukumTua = mutation({
+  args: {
+    name: v.string(),
+    tahunJabatan: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
+    const uploadedAt = Date.now();
+    await ctx.db.insert("previousHukumTua", {
+      name: args.name,
+      tahunJabatan: args.tahunJabatan,
+      uploadedAt,
+    });
+  },
+});
+
+export const listPreviousHukumTua = query(async (ctx) => {
+  return await ctx.db.query("previousHukumTua").order("desc").collect();
+});
+
+export const deletePreviousHukumTua = mutation({
+  args: {
+    id: v.id("previousHukumTua"),
+  },
+  handler: async (ctx, {id}) => {
+    await ctx.db.delete(id);
+  },
+});

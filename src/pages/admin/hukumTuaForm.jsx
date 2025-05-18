@@ -27,11 +27,15 @@ function HukumTuaForm() {
   const saveHukumTua = useMutation(api.hukumTua.saveHukumTua);
   const hukumTuaList = useQuery(api.hukumTua.getHukumTua); // gunakan yang sudah ada
   const hukumTua = hukumTuaList?.[0]; // ambil hanya yang terbaru (seperti struktur)
-
   const hukumTuaUrl = useQuery(api.files.getFileUrl, hukumTua ? {storageId: hukumTua.storageId} : "skip");
+  const savePreviousHukumTua = useMutation(api.hukumTua.savePreviousHukumTua);
+  const previousHukumTuaList = useQuery(api.hukumTua.listPreviousHukumTua);
+  const deletePreviousHukumTua = useMutation(api.hukumTua.deletePreviousHukumTua);
 
   const [name, setName] = useState("");
   const [image, setImage] = useState(null);
+  const [prevName, setPrevName] = useState("");
+  const [prevTahun, setPrevTahun] = useState("");
   const [preview, setPreview] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
 
@@ -76,12 +80,42 @@ function HukumTuaForm() {
     }
   };
 
+  const handlePrevSubmit = async (e) => {
+    e.preventDefault();
+    if (!prevName) {
+      alert("Nama Hukum Tua wajib diisi.");
+      return;
+    }
+
+    try {
+      await savePreviousHukumTua({name: prevName, tahunJabatan: prevTahun});
+      alert("Hukum Tua Terdahulu berhasil ditambahkan!");
+      setPrevName("");
+      setPrevTahun("");
+    } catch (err) {
+      console.error(err);
+      alert("Terjadi kesalahan saat menyimpan data.");
+    }
+  };
+
+  const handleDeletePrevious = async (id) => {
+    if (confirm("Yakin ingin menghapus data Hukum Tua ini?")) {
+      try {
+        await deletePreviousHukumTua({id});
+        alert("Data berhasil dihapus!");
+      } catch (err) {
+        console.error(err);
+        alert("Terjadi kesalahan saat menghapus data.");
+      }
+    }
+  };
+
   return (
     <>
       <Navbar menuItems={menuItems} />
       <div className='admin-content py-5 container'>
-        <h1 className='mb-4'>Hukum Tua Form</h1>
-
+        <h1 className='mb-4 text-center'>Hukum Tua Form</h1>
+        <h2 className='mb-4'>Tambah Hukum Tua Saat Ini</h2>
         <form onSubmit={handleSubmit} className='border p-3 rounded bg-light'>
           <div className='mb-3'>
             <label className='form-label'>Nama Hukum Tua</label>
@@ -96,6 +130,30 @@ function HukumTuaForm() {
             {isUploading ? "Proses..." : hukumTua ? "Ganti Hukum Tua" : "Upload"}
           </button>
         </form>
+        <hr className='my-5' />
+        <h2 className='mb-4'>Tambah Hukum Tua Terdahulu</h2>
+        <form onSubmit={handlePrevSubmit} className='border p-3 rounded bg-light'>
+          <div className='mb-3'>
+            <label className='form-label'>Nama Hukum Tua</label>
+            <input type='text' className='form-control' value={prevName} onChange={(e) => setPrevName(e.target.value)} required />
+          </div>
+          <div className='mb-3'>
+            <label className='form-label'>
+              Tahun Jabatan <span className='text-muted'>(opsional)</span>
+            </label>
+            <input
+              type='text'
+              className='form-control'
+              value={prevTahun}
+              onChange={(e) => setPrevTahun(e.target.value)}
+              placeholder='Contoh: 2015-2020'
+            />
+          </div>
+          <button type='submit' className='btn btn-primary'>
+            Simpan
+          </button>
+        </form>
+
         <div className='mt-5'>
           <h2 className='text-center'>Hukum Tua Saat Ini</h2>
           {hukumTuaUrl ? (
@@ -113,6 +171,25 @@ function HukumTuaForm() {
             <p className='text-muted'>Belum ada Hukum Tua yang diunggah.</p>
           )}
         </div>
+
+        {previousHukumTuaList && previousHukumTuaList.length > 0 && (
+          <div className='mt-5'>
+            <h3 className='text-center mb-4'>Daftar Hukum Tua Terdahulu</h3>
+            <ul className='list-group'>
+              {previousHukumTuaList.map((item) => (
+                <li key={item._id} className='list-group-item d-flex justify-content-between align-items-center'>
+                  <div>
+                    <strong>{item.name}</strong>
+                    {item.tahunJabatan && <div className='text-muted small'>Tahun Jabatan: {item.tahunJabatan}</div>}
+                  </div>
+                  <button className='btn btn-sm btn-danger' onClick={() => handleDeletePrevious(item._id)}>
+                    Hapus
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
       <Footer />
     </>

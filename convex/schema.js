@@ -36,4 +36,9 @@ export default defineSchema({
     storageId: v.id("_storage"),
     uploadedAt: v.optional(v.float64()),
   }),
+  previousHukumTua: defineTable({
+    name: v.string(),
+    tahunJabatan: v.optional(v.string()),
+    uploadedAt: v.float64(),
+  }),
 });
