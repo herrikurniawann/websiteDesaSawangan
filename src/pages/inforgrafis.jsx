@@ -63,7 +63,7 @@ function Infografis() {
   });
 
   const religions = [
-    "Islam", "Kristen", "Katolik", "Hindu", "Buddha", "Konghucu", "Kepercayaan lainnya",
+    "Islam", "Kristen", "Katolik", "Hindu", "Buddha", "Konghucu",
   ];
 
   const religionStats = religions.reduce((acc, religion) => {

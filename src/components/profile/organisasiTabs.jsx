@@ -18,7 +18,7 @@ function OrganisasiTab() {
               src={strukturUrl}
               alt='Struktur Organisasi'
               className='img-fluid img-thumbnail w-100'
-              style={{maxHeight: 400, objectFit: "contain"}}
+              style={{maxHeight: 1800, objectFit: "contain"}}
             />
           )}
         </div>
