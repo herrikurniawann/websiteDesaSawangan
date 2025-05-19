@@ -4,6 +4,7 @@ import Footer from "@components/footer";
 import { useMutation, useQuery } from "convex/react";
 import { useNavigate } from "react-router-dom";
 import { api } from "@convex/_generated/api";
+import withAdminAuth from "../../components/protected/withAdminAuth";
 
 function Dashboard() {
   const [loading, setLoading] = useState(Array(6).fill(false));
@@ -488,4 +489,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default withAdminAuth(Dashboard);
