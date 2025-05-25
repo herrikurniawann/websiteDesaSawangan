@@ -36,7 +36,7 @@ function Footer() {
           
           <div className="col-12 col-md-4">
             <h5 className="mb-3">Kontak</h5>
-            <p>Email: info@desasawangan.id<br />Telepon: (0431) 123456</p>
+            <p>Email: desaa5963@gmail.com<br />Telepon: (0431) 123456</p>
             <div className="d-flex gap-3 mt-3">
               <a href="#" className="text-white fs-5"><i className="bi bi-facebook"></i></a>
               <a href="#" className="text-white fs-5"><i className="bi bi-instagram"></i></a>
