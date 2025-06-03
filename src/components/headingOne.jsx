@@ -8,7 +8,7 @@ function HeadingOne() {
     >
       <div className="content-headingOne position-relative w-100 h-100">
         <img
-          src="/assets/desaSawangan.jpg"
+          src="/assets/desaSawangan.jpeg"
           alt="desaSawangan"
           className="position-absolute w-100 h-100 z-1 object-fit-cover"
         />
